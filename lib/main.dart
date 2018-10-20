@@ -1,4 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:salieri/SplashScreen.dart/';
+import 'package:salieri/Login.dart';
+import 'package:salieri/Dashboard.dart';
 
 void main() => runApp(new MyApp());
 
@@ -9,14 +12,21 @@ class MyApp extends StatelessWidget {
             title: "Salieri",
             home: new HomePage(),
             theme: new ThemeData(
-                primarySwatch: Colors.deepPurple
-
+                primarySwatch: Colors.teal,
+                brightness: Brightness.light,
             ),
+            initialRoute: '/splash',
+            routes: {
+                '/splash' : (context) => SplashScreen(),
+                '/login' : (context) => Login(),
+                '/dashboard' : (context) => Dashboard(),
+            },
         );
     }
 }
 
 class HomePage extends StatelessWidget {
+
     @override
     Widget build(BuildContext context) {
         return Scaffold(
