@@ -12,8 +12,9 @@ class MyApp extends StatelessWidget {
             title: "Salieri",
             home: SplashScreen(),
             theme: new ThemeData(
-                primarySwatch: Colors.teal,
                 brightness: Brightness.light,
+                primaryColor: Colors.blueAccent,
+                accentColor: Colors.white,
             ),
             initialRoute: '/splash',
             routes: {

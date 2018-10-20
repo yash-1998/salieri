@@ -40,11 +40,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     children: <Widget>[
                       CircleAvatar(
                         backgroundColor: Colors.white,
-                        radius: _iconanimation.value*100*42.0,
+                        radius: _iconanimation.value*50,
                         child: Icon(
                           Icons.attach_money,
                           color: Colors.blueAccent,
-                          size: _iconanimation.value*100,
+                          size: _iconanimation.value*50,
                         ),
                       ),
                       Padding(
@@ -67,7 +67,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircularProgressIndicator(),
+                    CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellowAccent),),
                     Padding(padding: EdgeInsets.only(top: 20.0),),
                     Text("Online Expense Manager",style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.normal ,color: Colors.white),),
                   ],
