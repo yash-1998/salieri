@@ -10,10 +10,11 @@ class MyApp extends StatelessWidget {
     Widget build(BuildContext context) {
         return MaterialApp(
             title: "Salieri",
-            home: new HomePage(),
+            home: new SplashScreen(),
             theme: new ThemeData(
                 primarySwatch: Colors.teal,
                 brightness: Brightness.light,
+                primaryColor: Colors.blueAccent,
             ),
             initialRoute: '/splash',
             routes: {
@@ -25,27 +26,4 @@ class MyApp extends StatelessWidget {
     }
 }
 
-class HomePage extends StatelessWidget {
-
-    @override
-    Widget build(BuildContext context) {
-        return Scaffold(
-            appBar: AppBar(
-                title: Text("Sign In"),
-                elevation : 5.00,
-            ),
-            body: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.stretch,
-                children: <Widget>[
-                    RaisedButton(
-                        onPressed: null ,
-                        child: Text ("Sign In With Google"),
-                        color: Colors.blueAccent,
-                    )
-                ],
-            )
-        );
-    }
-}
 
