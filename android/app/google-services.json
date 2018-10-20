@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "284798494309",
+    "firebase_url": "https://salieri-3e280.firebaseio.com",
+    "project_id": "salieri-3e280",
+    "storage_bucket": "salieri-3e280.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:284798494309:android:db15646f83ba1036",
+        "android_client_info": {
+          "package_name": "com.example.salieri"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "284798494309-12kkl1irpl09e5gcfdaejmj1hpp7pjhf.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.salieri",
+            "certificate_hash": "966aa2af4ae540d728f093a491bac1373577a5b0"
+          }
+        },
+        {
+          "client_id": "284798494309-t9h3i5hlef2rciaqarrco8bubjbhjr3f.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAL3SaqALbDiEecdq-z5BiUYfWMVPYMxnw"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "284798494309-t9h3i5hlef2rciaqarrco8bubjbhjr3f.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
