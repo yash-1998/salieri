@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:salieri/SplashScreen.dart/';
+import 'package:salieri/SplashScreen.dart';
 import 'package:salieri/Login.dart';
 import 'package:salieri/Dashboard.dart';
 
@@ -11,6 +11,7 @@ class MyApp extends StatelessWidget {
         return MaterialApp(
             title: "Salieri",
             home: new SplashScreen(),
+
             theme: new ThemeData(
                 primarySwatch: Colors.teal,
                 brightness: Brightness.light,
@@ -25,5 +26,3 @@ class MyApp extends StatelessWidget {
         );
     }
 }
-
-
