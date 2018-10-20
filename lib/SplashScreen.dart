@@ -1,5 +1,6 @@
 import 'dart:async' show Future, Timer;
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -18,7 +19,12 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _iconanimation = new CurvedAnimation(parent: _controller, curve: Curves.bounceOut);
     _iconanimation.addListener(() => this.setState((){}));
     _controller.forward();
-    Timer(Duration(seconds: 5),() => Navigator.pushNamed(context, '/login') );
+
+    Future <FirebaseUser> x  = FirebaseAuth.instance.currentUser();
+    if(x == null)
+      Timer(Duration(seconds: 5),(){ Navigator.pop(context); Navigator.pushNamed(context, '/login'); });
+    else
+      Timer(Duration(seconds: 5),() { Navigator.pop(context); Navigator.pushNamed(context, '/dashboard'); });
   }
 
   Widget build(BuildContext context) {
