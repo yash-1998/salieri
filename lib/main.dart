@@ -9,7 +9,7 @@ class MyApp extends StatelessWidget {
             title: "Salieri",
             home: new HomePage(),
             theme: new ThemeData(
-                primarySwatch: Colors.blue
+                primarySwatch: Colors.deepPurple
 
             ),
         );
