@@ -13,11 +13,10 @@ class MyApp extends StatelessWidget {
             home: new SplashScreen(),
 
             theme: new ThemeData(
-                primarySwatch: Colors.teal,
                 brightness: Brightness.light,
                 primaryColor: Colors.blueAccent,
+                accentColor: Colors.white,
             ),
-            initialRoute: '/splash',
             routes: {
                 '/splash' : (context) => SplashScreen(),
                 '/login' : (context) => Login(),

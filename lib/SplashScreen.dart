@@ -1,5 +1,6 @@
 import 'dart:async' show Future, Timer;
 import 'package:flutter/material.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 
 class SplashScreen extends StatefulWidget {
   @override
@@ -11,6 +12,9 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   AnimationController _controller;
   Animation<double> _iconanimation;
 
+  FirebaseAuth _auth = FirebaseAuth.instance;
+  FirebaseUser _user;
+
   @override
   void initState(){
     super.initState();
@@ -18,7 +22,26 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
     _iconanimation = new CurvedAnimation(parent: _controller, curve: Curves.bounceOut);
     _iconanimation.addListener(() => this.setState((){}));
     _controller.forward();
-    Timer(Duration(seconds: 5),() => Navigator.pushNamed(context, '/login') );
+
+    _checkUser();
+
+
+  }
+
+
+  Future<void> _checkUser() async {
+      FirebaseUser user = await _getUser();
+      if(user == null) {
+          Timer(Duration(seconds: 3),(){ Navigator.of(context).pushReplacementNamed('/login'); });
+      }
+      else {
+          Timer(Duration(seconds: 3),(){ Navigator.of(context).pushReplacementNamed('/dashboard'); });
+      }
+  }
+
+  Future <FirebaseUser> _getUser() {
+
+      return _auth.currentUser();
   }
 
   Widget build(BuildContext context) {
@@ -40,11 +63,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                     children: <Widget>[
                       CircleAvatar(
                         backgroundColor: Colors.white,
-                        radius: _iconanimation.value*100*42.0,
+                        radius: _iconanimation.value*50,
                         child: Icon(
                           Icons.attach_money,
                           color: Colors.blueAccent,
-                          size: _iconanimation.value*100,
+                          size: _iconanimation.value*50,
                         ),
                       ),
                       Padding(
@@ -67,7 +90,7 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
                 child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: <Widget>[
-                    CircularProgressIndicator(),
+                    CircularProgressIndicator(valueColor: new AlwaysStoppedAnimation<Color>(Colors.yellowAccent),),
                     Padding(padding: EdgeInsets.only(top: 20.0),),
                     Text("Online Expense Manager",style: TextStyle(fontSize: 18.0,fontWeight: FontWeight.normal ,color: Colors.white),),
                   ],
