@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:salieri/googleapi.dart';
 import 'package:salieri/main.dart';
+import 'package:salieri/Dashboard.dart';
 
 
 class Login extends StatelessWidget {
@@ -22,7 +23,10 @@ class Login extends StatelessWidget {
             return false;
         }
     }
+    Future <FirebaseUser> _getUser() {
 
+        return _auth.currentUser();
+    }
 
   @override
   Widget build(BuildContext context) {
@@ -41,7 +45,12 @@ class Login extends StatelessWidget {
                                           bool b = await _loginUser();
                                           if(b==true){
                                           print("b is true");
-                                          Navigator.of(context).pushReplacementNamed('/dashboard');
+                                          FirebaseUser user = await _getUser();
+                                          Navigator.of(context).pop();
+                                          Navigator.of(context).push(new MaterialPageRoute(
+                                              builder: (BuildContext context) =>
+                                              new Dashboard(user)));
+                                          //Navigator.of(context).pushReplacementNamed('/dashboard');
                                       }
                                       else{
                                           print("b is false");

@@ -1,7 +1,7 @@
 import 'dart:async' show Future, Timer;
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
+import 'package:salieri/Dashboard.dart';
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -28,6 +28,11 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
 
   }
 
+  Future <FirebaseUser> _getUser() {
+
+      return _auth.currentUser();
+  }
+
 
   Future<void> _checkUser() async {
       FirebaseUser user = await _getUser();
@@ -35,14 +40,16 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           Timer(Duration(seconds: 3),(){ Navigator.of(context).pushReplacementNamed('/login'); });
       }
       else {
-          Timer(Duration(seconds: 3),(){ Navigator.of(context).pushReplacementNamed('/dashboard'); });
+          Timer(Duration(seconds: 3),(){
+              Navigator.of(context).pop();
+              Navigator.of(context).push(new MaterialPageRoute(
+                  builder: (BuildContext context) =>
+                  new Dashboard(user)));
+              //Navigator.of(context).pushReplacementNamed('/dashboard');
+               });
       }
   }
 
-  Future <FirebaseUser> _getUser() {
-
-      return _auth.currentUser();
-  }
 
   Widget build(BuildContext context) {
     return Scaffold(

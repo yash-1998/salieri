@@ -17,6 +17,7 @@ class googleapii
     static Future<googleapii> signinwithgoogle() async
     {
         final GoogleSignInAccount googleuser = await _googleSignIn.signIn();
+        assert(googleuser!=null);
         final GoogleSignInAuthentication googleAuth = await googleuser.authentication;
 
         final FirebaseUser user = await _auth.signInWithGoogle(

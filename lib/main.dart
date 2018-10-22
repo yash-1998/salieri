@@ -9,6 +9,7 @@ class MyApp extends StatelessWidget {
     @override
     Widget build(BuildContext context) {
         return MaterialApp(
+            debugShowCheckedModeBanner: false,
             title: "Salieri",
             home: new SplashScreen(),
 
@@ -20,7 +21,7 @@ class MyApp extends StatelessWidget {
             routes: {
                 '/splash' : (context) => SplashScreen(),
                 '/login' : (context) => Login(),
-                '/dashboard' : (context) => Dashboard(),
+            //    '/dashboard' : (context) => Dashboard(),
             },
         );
     }
