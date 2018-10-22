@@ -31,4 +31,11 @@ class googleapii
         assert(user.uid == currentUser.uid);
         return googleapii(user);
     }
+
+    static void signout()
+    {
+        _googleSignIn.signOut();
+        FirebaseAuth.instance.signOut();
+        print("User Signed out");
+    }
 }

@@ -1,18 +1,22 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-
-
+import 'package:salieri/main.dart';
+import 'package:salieri/googleapi.dart';
 
 class Dashboard extends StatelessWidget {
 
-  FirebaseUser _user;
+  static FirebaseUser _user;
 
   Dashboard(FirebaseUser user)
   {
-      this._user=user;
+      _user=user;
   }
 
+  static FirebaseUser getuser()
+  {
+      return _user;
+  }
   @override
   Widget build(BuildContext context) {
 
@@ -31,23 +35,62 @@ class Dashboard extends StatelessWidget {
                               backgroundImage: new NetworkImage(_user.photoUrl),
                           ),
                       ),
+                      new ListTile(
+                          title: new Text("Friend List"),
+                          leading: new Icon(Icons.assignment_ind),
+                          onTap: null
+
+                      ),
+                      new ListTile(
+                          title: new Text("Group List"),
+                          leading: new Icon(Icons.group),
+                          onTap: null,
+                      ),
+                      new Divider(),
+
+                      new ListTile(
+                          title: Text("SignOut"),
+                          onTap: (){
+
+                              googleapii.signout();
+                              Navigator.pushReplacementNamed(context,'/login');
+                              },
+                          
+                      ),
+
                   ],
               ),
           ),
-          floatingActionButton: StreamBuilder(
-              stream: FirebaseAuth.instance.currentUser().asStream(),
-              builder: (BuildContext context , AsyncSnapshot<FirebaseUser> snapshot)
-              {
-                  return FloatingActionButton(
-                      elevation: 10.0,
-                      onPressed: null,
-                      child: CircleAvatar(
-                          backgroundColor: Colors.teal,
-                          child: new Text(snapshot.data.displayName.substring(0,1)),
-                      ),
-                  );
-              },
-          ),
+
+          floatingActionButton: new Row(
+
+
+              crossAxisAlignment: CrossAxisAlignment.end,
+              mainAxisAlignment: MainAxisAlignment.end,
+              children: <Widget>[
+                  FloatingActionButton(
+                      heroTag: null,
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blueAccent,
+                      child: new Icon(Icons.group_add),
+                      onPressed: () {
+                          Navigator.pushNamed(context, '/addnewgroup');
+                      },
+                  ),
+                  Padding(padding: const EdgeInsets.all(8.0)),
+                  FloatingActionButton(
+                      heroTag: null,
+                      foregroundColor: Colors.white,
+                      backgroundColor: Colors.blueAccent,
+                      child: new Icon(Icons.person_add),
+                      onPressed: () {
+                          Navigator.pushNamed(context, '/addnewfriend');
+                      },
+                  ),
+
+              ],
+          )
+         
       );
   }
 }

@@ -46,11 +46,13 @@ class Login extends StatelessWidget {
                                           if(b==true){
                                           print("b is true");
                                           FirebaseUser user = await _getUser();
-                                          Navigator.of(context).pop();
-                                          Navigator.of(context).push(new MaterialPageRoute(
-                                              builder: (BuildContext context) =>
-                                              new Dashboard(user)));
-                                          //Navigator.of(context).pushReplacementNamed('/dashboard');
+//                                          Navigator.of(context).pop();
+//                                          Navigator.of(context).push(new MaterialPageRoute(
+//                                              builder: (BuildContext context) =>
+//                                              new Dashboard(user)));
+                                          Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                                              builder: (BuildContext context) => new Dashboard(user)
+                                          ));
                                       }
                                       else{
                                           print("b is false");
