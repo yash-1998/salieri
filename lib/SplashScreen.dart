@@ -41,12 +41,8 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
       }
       else {
           Timer(Duration(seconds: 3),(){
-              Navigator.of(context).pop();
-              Navigator.of(context).push(new MaterialPageRoute(
-                  builder: (BuildContext context) =>
-                  new Dashboard(user)));
-              //Navigator.of(context).pushReplacementNamed('/dashboard');
-               });
+            Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                builder: (BuildContext context) => new Dashboard(user))); });
       }
   }
 
