@@ -5,6 +5,7 @@ import 'package:salieri/googleapi.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
+import 'package:salieri/customefloating.dart';
 
 class Dashboard extends StatefulWidget {
 
@@ -213,9 +214,8 @@ class _DashboardState extends State<Dashboard> {
               ),
           ),
 
-          floatingActionButton: new Row(
-
-
+          floatingActionButton: new FancyFab()
+      /*    new Row(
               crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.end,
               children: <Widget>[
@@ -246,13 +246,12 @@ class _DashboardState extends State<Dashboard> {
                       child: new Icon(Icons.attach_money),
                       onPressed: () {
 
-
                       },
                   ),
 
               ],
-          )
-         
+          )*/
+
       );
   }
 }
