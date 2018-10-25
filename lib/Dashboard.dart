@@ -6,7 +6,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:salieri/customefloating.dart';
-
+import 'personal.dart';
 class Dashboard extends StatefulWidget {
 
     static FirebaseUser _user;
@@ -195,7 +195,9 @@ class _DashboardState extends State<Dashboard> {
                       new ListTile(
                           title: new Text("Personal Expenses"),
                           leading: new Icon(Icons.attach_money),
-                          onTap: null
+                          onTap: (){
+                            Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new personal(Dashboard.app,Dashboard.getuser())));
+                          }
 
                       ),
                       new Divider(),
