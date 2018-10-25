@@ -2,6 +2,11 @@ import 'dart:async' show Future, Timer;
 import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:salieri/Dashboard.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:firebase_database/ui/firebase_animated_list.dart';
+
 class SplashScreen extends StatefulWidget {
   @override
   _SplashScreenState createState() => _SplashScreenState();
@@ -40,9 +45,17 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
           Timer(Duration(seconds: 3),(){ Navigator.of(context).pushReplacementNamed('/login'); });
       }
       else {
-          Timer(Duration(seconds: 3),(){
+          Timer(Duration(seconds: 3),() async {
+            FirebaseApp app = await FirebaseApp.configure(
+              name: 'db2',
+              options: const FirebaseOptions(
+                googleAppID: '1:284798494309:android:db15646f83ba1036',
+                apiKey: 'AIzaSyAL3SaqALbDiEecdq-z5BiUYfWMVPYMxnw',
+                databaseURL: 'https://salieri-3e280.firebaseio.com/',
+              ),
+            );
             Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                builder: (BuildContext context) => new Dashboard(user))); });
+                builder: (BuildContext context) => new Dashboard(user,app))); });
       }
   }
 

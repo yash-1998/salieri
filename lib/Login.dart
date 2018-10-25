@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:salieri/googleapi.dart';
-import 'package:salieri/main.dart';
 import 'package:salieri/Dashboard.dart';
 import 'package:salieri/button.dart';
 import 'package:flutter_facebook_login/flutter_facebook_login.dart';
+
+import 'package:firebase_core/firebase_core.dart';
+import 'package:firebase_database/firebase_database.dart';
 
 class Login extends StatelessWidget {
 
@@ -30,6 +32,8 @@ class Login extends StatelessWidget {
         return _auth.currentUser();
     }
 
+
+
     @override
     Widget build(BuildContext context) {
         return Scaffold(
@@ -47,8 +51,16 @@ class Login extends StatelessWidget {
                                 if(b==true){
                                     print("b is true");
                                     FirebaseUser user = await _getUser();
+                                    FirebaseApp app = await FirebaseApp.configure(
+                                        name: 'db2',
+                                        options: const FirebaseOptions(
+                                            googleAppID: '1:284798494309:android:db15646f83ba1036',
+                                            apiKey: 'AIzaSyAL3SaqALbDiEecdq-z5BiUYfWMVPYMxnw',
+                                            databaseURL: 'https://salieri-3e280.firebaseio.com/',
+                                        ),
+                                    );
                                     Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                        builder: (BuildContext context) => new Dashboard(user)
+                                        builder: (BuildContext context) => new Dashboard(user,app)
                                     ));
                                 }
                                 else{
@@ -61,7 +73,17 @@ class Login extends StatelessWidget {
                         Padding(padding: EdgeInsets.all(20.0)),
                         MaterialButton(
                             child: button('Facebook', 'images/facebook.png', Colors.white),
-                            onPressed: () {
+                            onPressed: ()  async {
+
+                                FirebaseApp app = await FirebaseApp.configure(
+                                    name: 'db2',
+                                    options: const FirebaseOptions(
+                                        googleAppID: '1:284798494309:android:db15646f83ba1036',
+                                        apiKey: 'AIzaSyAL3SaqALbDiEecdq-z5BiUYfWMVPYMxnw',
+                                        databaseURL: 'https://salieri-3e280.firebaseio.com/',
+                                    ),
+                                );
+                                fblogin.loginBehavior = FacebookLoginBehavior.webViewOnly;
                                 fblogin.logInWithReadPermissions(['email','public_profile'])
                                 .then((result){
                                     switch(result.status)
@@ -70,8 +92,9 @@ class Login extends StatelessWidget {
                                             FirebaseAuth.instance.signInWithFacebook
                                                 (accessToken: result.accessToken.token)
                                                 .then((user) {
+                                                    print(user);
                                                     Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                                    builder: (BuildContext context) => new Dashboard(user)
+                                                    builder: (BuildContext context) => new Dashboard(user,app)
                                                 ));
                                             }).catchError((e) { print(e);});
                                             break;
