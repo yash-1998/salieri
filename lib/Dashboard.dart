@@ -43,9 +43,25 @@ class _DashboardState extends State<Dashboard> {
   }
 
   _onEntryRemoved(Event event){
+      print(event.snapshot.key);
       print("removed");
       setState(() {
-        expenses.remove(Expense.fromSnapShot(event.snapshot));
+        print("before");
+        for(int i=0;i<expenses.length;i++)
+        {
+            print("$i " + expenses[i].amount);
+            if(expenses[i].key == event.snapshot.key)
+            {
+                expenses.removeAt(i);
+   //             break;
+            }
+        }
+
+        print("after");
+        for(int i=0;i<expenses.length;i++)
+            {
+                print("$i " + expenses[i].amount);
+            }
       });
   }
   _onEntryAdded(Event event){
@@ -63,6 +79,7 @@ class _DashboardState extends State<Dashboard> {
       });
       setState(() {
           expenses[expenses.indexOf(old)] = Expense.fromSnapShot(event.snapshot);
+
       });
   }
   void handlesubmit(){
@@ -108,7 +125,7 @@ class _DashboardState extends State<Dashboard> {
                                                   onSaved: (val) => this.expense.reason=val,
                                                   validator: (val){
                                                       if(val==""){
-                                                          print("Empty reason");
+                                                          return "Empty reason";
                                                       }
                                                   },
                                               ),
@@ -120,14 +137,18 @@ class _DashboardState extends State<Dashboard> {
                                                   onSaved: (val) =>  this.expense.amount=val,
                                                   validator: (val){
                                                       if(val==""){
-                                                          print("Empty amount");
+                                                          return "Empty Amount";
                                                       }
                                                   },
                                               ),
                                           ),
                                           IconButton(
                                               icon: Icon(Icons.send),
-                                              onPressed: handlesubmit,
+                                              onPressed: () {
+                                                  if(formKey.currentState.validate()) {
+                                                      handlesubmit();
+                                                  }
+                                              },
                                           )
                                       ],
                                   ),
@@ -169,6 +190,12 @@ class _DashboardState extends State<Dashboard> {
                           title: new Text("Group List"),
                           leading: new Icon(Icons.group),
                           onTap: null,
+                      ),
+                      new ListTile(
+                          title: new Text("Personal Expenses"),
+                          leading: new Icon(Icons.attach_money),
+                          onTap: null
+
                       ),
                       new Divider(),
 
