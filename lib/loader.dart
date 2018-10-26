@@ -18,10 +18,6 @@ class _loaderState extends State<loader> with SingleTickerProviderStateMixin {
       child: Center(
         child: Stack(
           children: <Widget>[
-            Dot(
-              radius: 30.0,
-              color: Colors.black38,
-            )
           ],
         ),
       ),
@@ -29,17 +25,9 @@ class _loaderState extends State<loader> with SingleTickerProviderStateMixin {
   }
 }
 
-class Dot{
+class Dot {
   final double radius;
   final double color;
-  Dot({this.radius,this.color})
 
-  return Container(
-      width: this.radius,
-      height: this.radius,
-      decoration: BoxDecoration(
-        color: this.color,
-        shape: BoxShape.circle
-      ),
-  )
+  Dot({this.radius, this.color});
 }
