@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:salieri/googleapi.dart';
+import 'package:salieri/groupslist.dart';
 import 'personal.dart';
 import 'package:salieri/Dashboard.dart';
 
@@ -22,7 +23,9 @@ Widget navigationdrawer(BuildContext context){
                     new ListTile(
                         title: new Text("Group List"),
                         leading: new Icon(Icons.group),
-                        onTap: null,
+                        onTap: (){
+                            Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Groupslist()));
+                        },
                     ),
                     new ListTile(
                         title: new Text("Personal Expenses"),

@@ -12,40 +12,20 @@ import 'package:salieri/Appuser.dart';
 
 class Privateuser {
 
-    String key;
-    String username;
-    String email;
-    String photo;
-    List <String> friends;
-    List <String> groups;
+    List <String> groupslist ;
 
+    Privateuser(){
+        groupslist = new List();
 
-    Privateuser(this.username,this.email,this.photo);
-
-    Privateuser.fromFirebase(FirebaseUser user) {
-        this.email = user.email;
-        this.username = user.displayName;
-        this.photo = user.photoUrl;
-        this.friends = List();
-        this.groups = List();
+        groupslist.add("-LPr6zruv8jSR1TIZUb-");
+        groupslist.add("-LPr7INrBzz1l-hzsEWT");
     }
-
     Privateuser.fromSnapShot(DataSnapshot snapshot)
-        : key = snapshot.key,
-            email = snapshot.value['email'],
-            username= snapshot.value['username'],
-            photo = snapshot.value['photourl'],
-            friends = snapshot.value['friends'],
-            groups = snapshot.value['groups'];
+        :   groupslist = snapshot.value['Groupslist'];
     toJson()
     {
         return{
-            'username' : username,
-            'photourl' : photo,
-            'email' : email,
-            'friends' : friends,
-            'groups' : groups
+            'Groupslist' : groupslist
         };
     }
-
 }

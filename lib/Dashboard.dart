@@ -5,6 +5,7 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
 import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:salieri/customefloating.dart';
+import 'package:salieri/groups.dart';
 import 'package:salieri/privateuser.dart';
 import 'personal.dart';
 import 'package:salieri/navigationdrawer.dart';
@@ -17,18 +18,23 @@ class Dashboard extends StatefulWidget {
     static FirebaseApp app;
     DatabaseReference reference;
     DatabaseReference reference2;
+    DatabaseReference reference3;
 
     Dashboard(FirebaseUser user,FirebaseApp fapp)
     {
         _user=user;
         app=fapp;
         Appuser appuser = Appuser.fromFirebase(_user);
-        Privateuser privateuser = Privateuser.fromFirebase(_user);
         final FirebaseDatabase database = FirebaseDatabase(app : app);
+        Privateuser privateuser = new Privateuser();
         reference = database.reference().child("Appusers").child(user.uid);
         reference.set(appuser.toJson());
-        reference = database.reference().child("Privateusers").child(user.uid);
-        reference.set(appuser.toJson());
+        reference2 = database.reference().child("Privateusers").child(user.uid);
+        reference2.set(privateuser.toJson());
+        Groups groups = new Groups("abababab");
+        reference3 = database.reference().child("Groups");
+        reference3.push().set(groups.toJson());
+        
     }
     static FirebaseUser getuser()
     {

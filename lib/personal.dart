@@ -66,6 +66,7 @@ class _personalState extends State<personal> {
         });
     }
     _onEntryAdded(Event event){
+
         setState(() {
             expenses.add(Expense.fromSnapShot(event.snapshot));
         });
@@ -143,29 +144,23 @@ class _personalState extends State<personal> {
                   ),
                 ),
 
-
-
-
-
-
-                    Flexible(
-                        child: FirebaseAnimatedList(query: expenseref,
-                            itemBuilder: (BuildContext context,DataSnapshot snapshot,
-                                Animation<double> animation,int index)
-                            {
-                                return Card(
-                                  child: new ListTile(
-                                      leading: Icon(Icons.attach_money),
-                                      title: Text(expenses[index].reason),
-                                      subtitle: Text(expenses[index].amount),
-                                  ),
-                                );
-                            }),
-                    ),
+                Flexible(
+                    child: FirebaseAnimatedList(query: expenseref,
+                        itemBuilder: (BuildContext context,DataSnapshot snapshot,
+                            Animation<double> animation,int index)
+                        {
+                            return Card(
+                              child: new ListTile(
+                                  leading: Icon(Icons.attach_money),
+                                  title: Text(expenses[index].reason),
+                                  subtitle: Text(expenses[index].amount),
+                              ),
+                            );
+                        }),
+                ),
                 ],
             ),
             drawer: navigationdrawer(context),
-        //    floatingActionButton: new FancyFab()
         );
     }
 }
