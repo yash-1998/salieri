@@ -5,6 +5,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:salieri/Appuser.dart';
 import 'package:salieri/Dashboard.dart';
+import 'package:salieri/expense.dart';
 class FancyFab extends StatefulWidget {
     final Function() onPressed;
     final String tooltip;
@@ -143,7 +144,19 @@ class _FancyFabState extends State<FancyFab>
         );
     }
 
+    _onEntryAdded(Event event){
+        setState(() {
+            Expense.fromSnapShot(event.snapshot);
+        });
+    }
+
     Widget inbox() {
+        final myController = TextEditingController();
+        final myController2 = TextEditingController();
+        DatabaseReference expenseref;
+        final FirebaseDatabase database = FirebaseDatabase(app : Dashboard.app);
+        expenseref = database.reference().child('Personal').child(Dashboard.getuser().uid);
+        expenseref.onChildAdded.listen(_onEntryAdded);
         return Container(
             child: FloatingActionButton(
                 heroTag: null,
@@ -151,6 +164,57 @@ class _FancyFabState extends State<FancyFab>
                 backgroundColor: Colors.blueAccent,
                 child: new Icon(Icons.attach_money),
                 onPressed: () {
+                  showDialog(
+                    context: context,
+                    builder: (_){
+                      return AlertDialog(
+                        title: new Text("Add New Expense"),
+                        content: SingleChildScrollView(
+                          child: ListView(
+                            children: <Widget>[
+                              TextField(
+                                controller: myController,
+                                decoration: new InputDecoration(
+                                  hintText: "Party with friends",
+                                  icon: new Icon(Icons.add_comment),
+                                  labelText: "Reason",
+                                ),
+                              ),
+                              TextField(
+                                controller: myController2,
+                                decoration: new InputDecoration(
+                                  hintText: "200.35",
+                                  icon: new Icon(Icons.money_off),
+                                  labelText: "Amount",
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          new FlatButton(
+                            child: Text("Add",style: new TextStyle(color: Colors.black87),),
+                            onPressed: (){
+                              if(myController.text!="" && myController2.text!="")
+                              {
+                                Expense ex = new Expense(myController.text,myController2.text);
+                                expenseref.push().set(ex.toJson());
+                              }
+                              else
+                              {
+                                Scaffold.of(context).showSnackBar(
+                                  new SnackBar(
+                                    content: new Text("Fields empty"),
+                                  )
+                                );
+                              }
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+                      );
+                    },
+                  );
                 },
             ),
         );
