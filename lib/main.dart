@@ -9,14 +9,13 @@ void main() => runApp(new MyApp());
 
 class MyApp extends StatelessWidget {
 
-
     @override
     Widget build(BuildContext context) {
+
         return MaterialApp(
             debugShowCheckedModeBanner: false,
             title: "Salieri",
             home: new SplashScreen(),
-
             theme: new ThemeData(
                 brightness: Brightness.light,
                 primaryColor: Colors.blueAccent,
@@ -25,8 +24,6 @@ class MyApp extends StatelessWidget {
             routes: {
                 '/splash' : (context) => SplashScreen(),
                 '/login' : (context) => Login(),
-              //  '/dashboard' : (context) => Dashboard(Dashboard.getuser()),
-             //   '/addnewfriend' : (context) => addnewfriend(),
                 '/addnewgroup' : (context) => addnewgroup(),
             },
         );

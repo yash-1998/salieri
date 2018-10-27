@@ -18,8 +18,15 @@ class _addnewfriendState extends State<addnewfriend> {
 
     String email,name="",photourl="";
     Appuser appuser;
+    String uid;
     _addnewfriendState(this.email);
 
+    void addfriend(String f2key){
+        String f1key=Dashboard.getuser().uid;
+        final FirebaseDatabase database = FirebaseDatabase(app : Dashboard.app);
+
+
+    }
     @override
     Widget build(BuildContext context) {
         return new FutureBuilder(
@@ -35,6 +42,7 @@ class _addnewfriendState extends State<addnewfriend> {
                     else {
 
                         values.forEach((key, values) {
+                            uid=key;
                             name = values['username'];
                             photourl = values['photourl'];
                             print(photourl);
@@ -71,7 +79,7 @@ class _addnewfriendState extends State<addnewfriend> {
                                             new RaisedButton(
                                                 child: new Text("Add Friend"),
                                                 onPressed: () {
-                                                    
+                                                    //addfriend();
                                                 },
                                             )
                                         ]

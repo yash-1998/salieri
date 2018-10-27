@@ -18,6 +18,5 @@ class Expense
             'reason' : reason,
             'amount' : amount,
         };
-
     }
 }
