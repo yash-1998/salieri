@@ -21,7 +21,7 @@ class Dashboard extends StatefulWidget {
     {
         _user=user;
         app=fapp;
-        Appuser appuser = Appuser(_user);
+        Appuser appuser = Appuser.fromFirebase(_user);
         final FirebaseDatabase database = FirebaseDatabase(app : app);
         reference = database.reference().child("Appusers").child(user.uid);
         reference.set(appuser.toJson());

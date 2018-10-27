@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-
+import 'addnewfriend.dart';
+import 'package:firebase_database/firebase_database.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:salieri/Appuser.dart';
+import 'package:salieri/Dashboard.dart';
 class FancyFab extends StatefulWidget {
     final Function() onPressed;
     final String tooltip;
@@ -86,6 +91,8 @@ class _FancyFabState extends State<FancyFab>
     }
 
     Widget image() {
+
+        final myController = TextEditingController();
         return Container(
             child: FloatingActionButton(
                 tooltip: 'Add Friend',
@@ -94,9 +101,45 @@ class _FancyFabState extends State<FancyFab>
                 backgroundColor: Colors.blueAccent,
                 child: new Icon(Icons.person_add),
                 onPressed: () {
-                    Navigator.pushNamed(context, '/addnewfriend');
-                },
-            ),
+
+                    showDialog(
+                        context: context ,
+                        builder: (_) {
+                            return AlertDialog(
+                                title: Text("Search User by Email"),
+                                content: SingleChildScrollView(
+                                    child: ListBody(
+                                        children: <Widget>[
+                                            TextField(
+                                                controller: myController,
+                                            ),
+                                        ],
+                                    ),
+                                ),
+                                actions: <Widget>[
+                                    new FlatButton(
+                                        child: Text("Search" ,
+                                                     style: new TextStyle(color: Colors.black87),),
+                                        onPressed: () async {
+                                            Map result = await Navigator.pushReplacement(
+                                                context, new MaterialPageRoute(
+                                                builder: (
+                                                    BuildContext context) =>
+                                                    addnewfriend(myController.text)
+                                            ));
+                                            if(result["result"] == false) {
+                                                Scaffold.of(context).showSnackBar(new SnackBar(
+                                                    content: new Text("User Not Found"),
+                                                ));
+                                            }
+                                        })
+                                 ]
+                            );
+
+                        },
+                    );
+                }
+            )
         );
     }
 

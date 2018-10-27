@@ -26,7 +26,7 @@ class MyApp extends StatelessWidget {
                 '/splash' : (context) => SplashScreen(),
                 '/login' : (context) => Login(),
               //  '/dashboard' : (context) => Dashboard(Dashboard.getuser()),
-                '/addnewfriend' : (context) => addnewfriend(),
+             //   '/addnewfriend' : (context) => addnewfriend(),
                 '/addnewgroup' : (context) => addnewgroup(),
             },
         );

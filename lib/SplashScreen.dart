@@ -42,10 +42,10 @@ class _SplashScreenState extends State<SplashScreen> with SingleTickerProviderSt
   Future<void> _checkUser() async {
       FirebaseUser user = await _getUser();
       if(user == null) {
-          Timer(Duration(seconds: 3),(){ Navigator.of(context).pushReplacementNamed('/login'); });
+          Timer(Duration(seconds: 1),(){ Navigator.of(context).pushReplacementNamed('/login'); });
       }
       else {
-          Timer(Duration(seconds: 3),() async {
+          Timer(Duration(seconds: 1),() async {
             FirebaseApp app = await FirebaseApp.configure(
               name: 'db2',
               options: const FirebaseOptions(

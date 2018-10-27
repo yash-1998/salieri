@@ -1,56 +1,89 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/foundation.dart';
-import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
-import 'package:salieri/customefloating.dart';
+import 'package:flutter/cupertino.dart';
+import 'package:flutter/material.dart';
+import 'package:salieri/Appuser.dart';
 import 'package:salieri/Dashboard.dart';
-import 'package:salieri/navigationdrawer.dart';
-import 'package:salieri/expense.dart';
 
 class addnewfriend extends StatefulWidget {
-  @override
-  _addnewfriendState createState() => _addnewfriendState();
+
+    String email;
+    addnewfriend(this.email);
+    @override
+    _addnewfriendState createState() => _addnewfriendState(email);
 }
 
 class _addnewfriendState extends State<addnewfriend> {
 
-
+    String email,name="",photourl="";
+    Appuser appuser;
+    _addnewfriendState(this.email);
 
     @override
-      Widget build(BuildContext context) {
-        return Scaffold(
-            appBar: new AppBar(
-                title: new Text("Add new Friends"),
-            ),
-            body: new Column(
-                children: <Widget>[
-                    Flexible(
-                        flex: 0,
-                        child: Center(
-                            child: Form(
-                                child: Flex(
-                                    direction: Axis.vertical,
-                                    children: <Widget>[
-                                        ListTile(
-                                            leading: Icon(Icons.search),
-                                            title: TextFormField()
+    Widget build(BuildContext context) {
+        return new FutureBuilder(
+            future: FirebaseDatabase.instance.reference().child("Appusers").orderByChild("email").equalTo(email).once(),
+            builder:  (BuildContext context, AsyncSnapshot snapshot) {
+                if(snapshot.hasData) {
 
-                                        ),
-                                        IconButton(
-                                            icon: Icon(Icons.send),
-                                            onPressed: () {
-                                               // showlist();
-                                            },
-                                        )
-                                    ]
-                                )
-                            )
-                        )
-                    ),
-                ]
-            )
+                    Map<dynamic, dynamic> values=snapshot.data.value;
+                    if(values==null){
+                        Navigator.of(context).pop({"result" : false});
+                        return Scaffold();
+                    }
+                    else {
+
+                        values.forEach((key, values) {
+                            name = values['username'];
+                            photourl = values['photourl'];
+                            print(photourl);
+                        });
+
+                        return Scaffold(
+                            appBar: new AppBar(
+                                title: Text("Add New Friend"),
+                                elevation: 5.0,
+                            ),
+                            body: new Column(
+                                children: <Widget>[
+                                    Column(
+                                        mainAxisSize: MainAxisSize.min,
+                                        children: <Widget>[
+                                            new Container(
+                                                child: new Image.network(
+                                                    photourl,
+                                                    height: 60.0,
+                                                    fit: BoxFit.cover,
+                                                ),
+                                            ),
+                                            new ListTile(
+                                                leading: Text("Name : "),
+                                                title: new Text(name),
+                                            ),
+                                            new ListTile(
+                                                leading: Text("Email : "),
+                                                title: new Text(email),
+                                            ),
+                                            new Padding(
+                                                padding: const EdgeInsets.all(
+                                                    10.0)),
+                                            new RaisedButton(
+                                                child: new Text("Add Friend"),
+                                                onPressed: () {
+                                                    
+                                                },
+                                            )
+                                        ]
+                                    ),
+                                ],
+                            ),
+                        );
+                    }
+                }
+                else
+                    return CircularProgressIndicator();
+            }
         );
     }
 }

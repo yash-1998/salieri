@@ -10,30 +10,26 @@ import 'package:salieri/navigationdrawer.dart';
 import 'package:salieri/expense.dart';
 import 'package:salieri/Appuser.dart';
 
-class Appuser
-{
+class Appuser {
     String key;
     String username;
     String email;
     String photo;
-    int totaldebit;
-    int totalcredit;
 
-    List<String> friendlist;
-    List<String> grouplist;
 
-    Appuser(FirebaseUser user)
-    {
-        this.email=user.email;
-        this.username=user.displayName;
+    Appuser(this.username,this.email,this.photo);
+
+    Appuser.fromFirebase(FirebaseUser user) {
+        this.email = user.email;
+        this.username = user.displayName;
         this.photo = user.photoUrl;
     }
+
     Appuser.fromSnapShot(DataSnapshot snapshot)
-        :  key = snapshot.key,
+        : key = snapshot.key,
             email = snapshot.value['email'],
             username= snapshot.value['username'],
             photo = snapshot.value['photourl'];
-
     toJson()
     {
         return{
