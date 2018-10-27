@@ -26,9 +26,17 @@ class Dashboard extends StatefulWidget {
         reference = database.reference().child("Appusers");
         final FirebaseDatabase db2 = FirebaseDatabase(app : app);
         reference2 = db2.reference().child("Appusers");
-        reference2.orderByChild("uid").equalTo(_user.uid);
+        reference2.orderByChild("uid").equalTo(_user.uid).once().then((DataSnapshot snapshot){
+            print("NEW USER");
+            print(user.uid);
+            Map<dynamic, dynamic> values=snapshot.value;
+            values.forEach((key,values) {
+                print(values["uid"]);
+            });
+        });
 
-        reference.push().set(appuser.toJson());
+
+
     }
     static FirebaseUser getuser()
     {
