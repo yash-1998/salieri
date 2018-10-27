@@ -41,25 +41,13 @@ class _addnewfriendState extends State<addnewfriend> {
                                         IconButton(
                                             icon: Icon(Icons.send),
                                             onPressed: () {
-                                                showlist();
+                                               // showlist();
                                             },
                                         )
                                     ]
                                 )
                             )
                         )
-                    ),
-                    Flexible(
-                        child: FirebaseAnimatedList(query: expenseref,
-                            itemBuilder: (BuildContext context,DataSnapshot snapshot,
-                                Animation<double> animation,int index)
-                            {
-                                return new ListTile(
-                                    leading: Icon(Icons.message),
-                                    title: Text(expenses[index].reason),
-                                    subtitle: Text(expenses[index].amount),
-                                );
-                            }),
                     ),
                 ]
             )
