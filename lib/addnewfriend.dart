@@ -185,7 +185,15 @@ class _addnewfriendState extends State<addnewfriend> {
                     }
                 }
                 else
-                    return CircularProgressIndicator();
+                    return Column(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: <Widget>[
+                        CircularProgressIndicator(
+                          backgroundColor: Colors.red,
+                          strokeWidth: 2.0,
+                        )
+                      ],
+                    );
             }
         );
     }
