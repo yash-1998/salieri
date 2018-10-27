@@ -124,7 +124,7 @@ class _personalState extends State<personal> {
                                   style: TextStyle(
                                     fontStyle: FontStyle.normal,
                                     fontSize: 18.0,
-                                    a
+
                                   ),
 
                               ),
