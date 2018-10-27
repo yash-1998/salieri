@@ -9,8 +9,9 @@ class addnewfriend extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         appBar: new AppBar(
-            title: new Text(Dashboard.getuser().displayName),
+            title: new Text("Add new Friends"),
         ),  
     );
   }
+
 }
