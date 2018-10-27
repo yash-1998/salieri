@@ -125,7 +125,6 @@ class _personalState extends State<personal> {
                                   style: TextStyle(
                                     fontStyle: FontStyle.normal,
                                     fontSize: 18.0,
-
                                   ),
 
                               ),
@@ -158,7 +157,7 @@ class _personalState extends State<personal> {
                             );
                         }),
                 ),
-                ],
+        ],
             ),
             drawer: navigationdrawer(context),
         );
