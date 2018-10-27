@@ -24,6 +24,7 @@ dependencies:
   flutter_facebook_login:
   firebase_database:
   firebase_core:
+  intl: ^0.15.7
 
 dev_dependencies:
   flutter_test:
