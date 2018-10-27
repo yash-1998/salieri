@@ -14,7 +14,7 @@ class Appuser
 {
     String key;
     String username;
-    String uid;
+    String email;
     String photo;
     int totaldebit;
     int totalcredit;
@@ -24,13 +24,13 @@ class Appuser
 
     Appuser(FirebaseUser user)
     {
-        this.uid = user.uid;
+        this.email=user.email;
         this.username=user.displayName;
         this.photo = user.photoUrl;
     }
     Appuser.fromSnapShot(DataSnapshot snapshot)
         :  key = snapshot.key,
-            uid = snapshot.value['uid'],
+            email = snapshot.value['email'],
             username= snapshot.value['username'],
             photo = snapshot.value['photourl'];
 
@@ -39,9 +39,8 @@ class Appuser
         return{
             'username' : username,
             'photourl' : photo,
-            'uid' : uid,
+            'email' : email,
         };
-
     }
 
 }
