@@ -170,7 +170,7 @@ class _FancyFabState extends State<FancyFab>
                       return AlertDialog(
                         title: new Text("Add New Expense"),
                         content: SingleChildScrollView(
-                          child: ListView(
+                          child: ListBody(
                             children: <Widget>[
                               TextField(
                                 controller: myController,
