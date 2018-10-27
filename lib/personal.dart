@@ -124,7 +124,6 @@ class _personalState extends State<personal> {
                                   style: TextStyle(
                                     fontStyle: FontStyle.normal,
                                     fontSize: 18.0,
-
                                   ),
 
                               ),
@@ -158,8 +157,9 @@ class _personalState extends State<personal> {
                                       leading: Icon(Icons.attach_money),
                                       title: Text(expenses[index].reason),
                                       subtitle: Text(expenses[index].amount),
-                                  ),
-                                );
+                                    )
+                                  );
+
                             }),
                     ),
                 ],

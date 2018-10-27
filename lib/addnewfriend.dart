@@ -55,34 +55,129 @@ class _addnewfriendState extends State<addnewfriend> {
                             ),
                             body: new Column(
                                 children: <Widget>[
-                                    Column(
-                                        mainAxisSize: MainAxisSize.min,
-                                        children: <Widget>[
-                                            new Container(
-                                                child: new Image.network(
-                                                    photourl,
-                                                    height: 60.0,
-                                                    fit: BoxFit.cover,
+                                    Expanded(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(8.0),
+                                        child: Column(
+                                            crossAxisAlignment: CrossAxisAlignment.start,
+                                            children: <Widget>[
+                                                Container(
+//                                                    color: Colors.grey,
+                                                  alignment: Alignment.center,
+                                                  padding: EdgeInsets.symmetric(vertical:30.0),
+                                                  child: Container(
+                                                      height:100.0,
+                                                      width: 100.0,
+                                                      decoration: BoxDecoration(
+                                                          boxShadow: [
+                                                            BoxShadow(
+                                                              spreadRadius: 1.0,
+                                                              blurRadius: 2.0,
+                                                              offset: Offset(1.0, 1.0)
+                                                            )
+                                                          ],
+//                                                          border: Border.all(
+//                                                              color: Colors.white,
+//                                                              width: 1.25,
+//                                                          ),
+                                                          shape: BoxShape.circle,
+                                                          image: DecorationImage(
+                                                              fit: BoxFit.fill,
+                                                              image:NetworkImage(
+                                                                  photourl),
+                                                          ),
+                                                      ),
+                                                  ),
                                                 ),
-                                            ),
-                                            new ListTile(
-                                                leading: Text("Name : "),
-                                                title: new Text(name),
-                                            ),
-                                            new ListTile(
-                                                leading: Text("Email : "),
-                                                title: new Text(email),
-                                            ),
-                                            new Padding(
-                                                padding: const EdgeInsets.all(
-                                                    10.0)),
-                                            new RaisedButton(
-                                                child: new Text("Add Friend"),
-                                                onPressed: () {
-                                                    //addfriend();
-                                                },
-                                            )
-                                        ]
+                                                Card(
+                                                  child: Padding(
+                                                    padding: const EdgeInsets.symmetric(vertical:10.0),
+                                                    child: new ListTile(
+
+                                                        title: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: <Widget>[
+                                                            Text(
+                                                                "Name",
+                                                                textAlign: TextAlign.left,
+                                                                style: TextStyle(
+                                                                  color: Colors.grey,
+                                                                  fontSize: 12.0,
+
+                                                                ),
+                                                            ),
+                                                            new Text(
+                                                                name,
+                                                                textAlign: TextAlign.left,
+                                                                style: TextStyle(
+                                                                  fontSize: 32.0,
+                                                                  fontFamily:"Roboto",
+                                                                ),
+                                                            ),
+
+                                                          ],
+                                                        ),
+                                                    ),
+                                                  ),
+                                                ),
+
+                                                Card(
+                                                  child: new ListTile(
+
+                                                    title: Padding(
+                                                      padding: const EdgeInsets.symmetric(vertical:15.0),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
+
+                                                        children: <Widget>[
+                                                          Text(
+                                                            "Mail",
+                                                            textAlign: TextAlign.left,
+                                                            style: TextStyle(
+                                                              color: Colors.grey,
+                                                              fontSize: 12.0,
+
+                                                            ),
+                                                          ),
+                                                          new Text(
+                                                            email,
+                                                            textAlign: TextAlign.left,
+                                                            style: TextStyle(
+                                                              fontSize: 18.0,
+                                                              fontFamily:"Roboto",
+                                                            ),
+                                                          ),
+
+                                                        ],
+                                                      ),
+                                                    ),
+                                                  ),
+                                                ),
+                                                new Padding(
+                                                    padding: const EdgeInsets.all(
+                                                        10.0)),
+                                                Row(
+                                                  children: <Widget>[
+
+                                                    Expanded(
+                                                      child: RaisedButton(
+                                                          child: Text(
+                                                            "Add Friend",
+                                                            style: TextStyle(
+                                                              color: Colors.white,
+                                                            ),
+                                                          ),
+                                                          onPressed: null,
+                                                          color: Colors.white,
+
+
+                                                      ),
+                                                    ),
+                                                  ],
+                                                )
+                                            ]
+                                        ),
+                                      ),
                                     ),
                                 ],
                             ),
