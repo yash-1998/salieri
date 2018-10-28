@@ -42,7 +42,7 @@ class _FancyFabState extends State<FancyFab>
             Tween<double>(begin: 0.0, end: 1.0).animate(_animationController);
         _buttonColor = ColorTween(
             begin: Colors.blue,
-            end: Colors.red,
+            end: Colors.indigo,
         ).animate(CurvedAnimation(
             parent: _animationController,
             curve: Interval(
@@ -80,7 +80,7 @@ class _FancyFabState extends State<FancyFab>
         isOpened = !isOpened;
     }
 
-    Widget add() {
+    Widget NewGroup() {
 
         TextEditingController myController = new TextEditingController();
         return Container(
@@ -156,7 +156,7 @@ class _FancyFabState extends State<FancyFab>
         );
     }
 
-    Widget image() {
+    Widget NewFriend() {
         final myController = TextEditingController();
         return Container(
             child: FloatingActionButton(
@@ -232,7 +232,7 @@ class _FancyFabState extends State<FancyFab>
         });
     }
 
-    Widget inbox() {
+    Widget NewExpense() {
         final myController = TextEditingController();
         final myController2 = TextEditingController();
         DatabaseReference expenseref;
@@ -328,7 +328,7 @@ class _FancyFabState extends State<FancyFab>
                         _translateButton.value * 3.0,
                         0.0,
                     ),
-                    child: add(),
+                    child: NewGroup(),
                 ),
                 Transform(
                     transform: Matrix4.translationValues(
@@ -336,7 +336,7 @@ class _FancyFabState extends State<FancyFab>
                         _translateButton.value * 2.0,
                         0.0,
                     ),
-                    child: image(),
+                    child: NewFriend(),
                 ),
                 Transform(
                     transform: Matrix4.translationValues(
@@ -344,7 +344,7 @@ class _FancyFabState extends State<FancyFab>
                         _translateButton.value,
                         0.0,
                     ),
-                    child: inbox(),
+                    child: NewExpense(),
                 ),
                 toggle(),
             ],
