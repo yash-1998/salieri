@@ -154,6 +154,7 @@ class _personalState extends State<personal> {
                                   title: Text(expenses[index].reason),
                                   subtitle: Text(expenses[index].amount),
                               ),
+                              color: Colors.cyan,
                             );
                         }),
                 ),

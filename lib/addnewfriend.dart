@@ -19,14 +19,9 @@ class _addnewfriendState extends State<addnewfriend> {
     String email,name="",photourl="";
     Appuser appuser;
     String uid;
+
     _addnewfriendState(this.email);
 
-    void addfriend(String f2key){
-        String f1key=Dashboard.getuser().uid;
-        final FirebaseDatabase database = FirebaseDatabase(app : Dashboard.app);
-
-
-    }
     @override
     Widget build(BuildContext context) {
         return new FutureBuilder(
@@ -62,7 +57,6 @@ class _addnewfriendState extends State<addnewfriend> {
                                             crossAxisAlignment: CrossAxisAlignment.start,
                                             children: <Widget>[
                                                 Container(
-//                                                    color: Colors.grey,
                                                   alignment: Alignment.center,
                                                   padding: EdgeInsets.symmetric(vertical:30.0),
                                                   child: Container(
@@ -128,7 +122,6 @@ class _addnewfriendState extends State<addnewfriend> {
                                                       padding: const EdgeInsets.symmetric(vertical:15.0),
                                                       child: Column(
                                                         crossAxisAlignment: CrossAxisAlignment.start,
-
                                                         children: <Widget>[
                                                           Text(
                                                             "Mail",
@@ -136,7 +129,6 @@ class _addnewfriendState extends State<addnewfriend> {
                                                             style: TextStyle(
                                                               color: Colors.grey,
                                                               fontSize: 12.0,
-
                                                             ),
                                                           ),
                                                           new Text(
@@ -147,7 +139,6 @@ class _addnewfriendState extends State<addnewfriend> {
                                                               fontFamily:"Roboto",
                                                             ),
                                                           ),
-
                                                         ],
                                                       ),
                                                     ),
@@ -169,8 +160,6 @@ class _addnewfriendState extends State<addnewfriend> {
                                                           ),
                                                           onPressed: null,
                                                           color: Colors.white,
-
-
                                                       ),
                                                     ),
                                                   ],

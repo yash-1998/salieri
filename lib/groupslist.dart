@@ -53,6 +53,8 @@ class _GroupslistState extends State<Groupslist> {
                                   );
                                 }
 
+                                print("Reached here");
+
                                 childs.add(
                                     Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -67,14 +69,14 @@ class _GroupslistState extends State<Groupslist> {
                                             builder: (BuildContext context,AsyncSnapshot snapshot){
                                                     if(snapshot.hasData){
                                                         Map <dynamic,dynamic> m = snapshot.data.value;
-                                                     //   return Card(
-                                                       //     child:
-                                                            new ListTile(
-                                                                leading: Icon(Icons.attach_money),
-                                                                title: Text(m["name"]),
-                                                               // subtitle: Text(),
-                                                            );
-                                                        //);
+                                                        return Card(
+                                                            child: new ListTile(
+                                                                    leading: Icon(Icons.attach_money),
+                                                                    title: Text(m["name"]),
+                                                            ),
+                                                            color: Colors.lightBlueAccent,
+
+                                                        );
                                                     }
                                                     else{
                                                         return CircularProgressIndicator();

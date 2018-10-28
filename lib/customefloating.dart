@@ -151,7 +151,6 @@ class _FancyFabState extends State<FancyFab>
     }
 
     Widget image() {
-
         final myController = TextEditingController();
         return Container(
             child: FloatingActionButton(
@@ -165,7 +164,7 @@ class _FancyFabState extends State<FancyFab>
                     context: context ,
                     builder: (_) {
                       return AlertDialog(
-                        title: new Text("Add New Expense"),
+                        title: new Text("Add New Friend"),
                         content: SingleChildScrollView(
                           child: ListBody(
                             children: <Widget>[

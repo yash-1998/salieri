@@ -18,7 +18,7 @@ class MyApp extends StatelessWidget {
             home: new SplashScreen(),
             theme: new ThemeData(
                 brightness: Brightness.light,
-                primaryColor: Colors.blueAccent,
+                primaryColor: Colors.cyan,
                 accentColor: Colors.white,
             ),
             routes: {
