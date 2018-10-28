@@ -29,8 +29,7 @@ class Groups{
     Groups.fromSnapshot(DataSnapshot snapshot):
             key = snapshot.key,
             name = snapshot.value['name'],
-            members = snapshot.value['members'],
-            transactions = snapshot.value['transactions'];
+            members = snapshot.value['members'];
     toJson()
     {
         return {
