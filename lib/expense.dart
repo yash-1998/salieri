@@ -5,9 +5,9 @@ class Expense
 {
     String key;
     String reason;
-    double amount;
+    var amount;
 
-    Expense(this.amount,this.reason);
+    Expense(this.reason,this.amount);
     Expense.fromSnapShot(DataSnapshot snapshot)
         :   key = snapshot.key,
             reason = snapshot.value['reason'],

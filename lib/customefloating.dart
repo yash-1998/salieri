@@ -280,7 +280,7 @@ class _FancyFabState extends State<FancyFab>
                             onPressed: (){
                               if(myController.text!="" && myController2.text!="")
                               {
-                                Expense ex = new Expense(myController.text,myController2.text);
+                                Expense ex = new Expense(myController.text,double.parse(myController2.text.toString()));
                                 expenseref.push().set(ex.toJson());
                               }
                               else
