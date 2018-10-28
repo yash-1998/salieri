@@ -157,7 +157,6 @@ class _FancyFabState extends State<FancyFab>
     }
 
     Widget image() {
-
         final myController = TextEditingController();
         return Container(
             child: FloatingActionButton(
@@ -171,7 +170,7 @@ class _FancyFabState extends State<FancyFab>
                     context: context ,
                     builder: (_) {
                       return AlertDialog(
-                        title: new Text("Add New Expense"),
+                        title: new Text("Add New Friend"),
                         content: SingleChildScrollView(
                           child: ListBody(
                             children: <Widget>[
@@ -281,7 +280,7 @@ class _FancyFabState extends State<FancyFab>
                             onPressed: (){
                               if(myController.text!="" && myController2.text!="")
                               {
-                                Expense ex = new Expense(double.parse(myController.text.toString()),myController2.text);
+                                Expense ex = new Expense(myController.text,double.parse(myController2.text.toString()));
                                 expenseref.push().set(ex.toJson());
                               }
                               else

@@ -48,7 +48,7 @@ class _DashboardState extends State<Dashboard> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    expense=new Expense(0.00,"");
+    expense=new Expense("",0.0);
     final FirebaseDatabase database = FirebaseDatabase(app : Dashboard.app);
     expenseref = database.reference().child('Personal').child(Dashboard._user.uid);
     expenseref.onChildAdded.listen(_onEntryAdded);
@@ -73,14 +73,13 @@ class _DashboardState extends State<Dashboard> {
       setState(() {
         for(int i=0;i<expenses.length;i++)
         {
-            print("$i " + expenses[i].amount.toString());
             if(expenses[i].key == event.snapshot.key)
             {
                 expenses.removeAt(i);
                 break;
             }
         }
-   });
+    });
   }
   _onEntryAdded(Event event){
       setState(() {

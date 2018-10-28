@@ -16,9 +16,6 @@ class Privateuser {
 
     Privateuser(){
         groupslist = new List();
-
-        groupslist.add("-LPr6zruv8jSR1TIZUb-");
-        groupslist.add("-LPr7INrBzz1l-hzsEWT");
     }
     Privateuser.fromSnapShot(DataSnapshot snapshot)
         :   groupslist = snapshot.value['Groupslist'];

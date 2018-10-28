@@ -21,8 +21,9 @@ class _personalState extends State<personal> {
 
 
 
-  String _sumvalue(){
-    int val = 2000000;
+    double sum=0;
+    String _sumvalue(){
+    double val = sum;
 
     String val1;
     var k =  new NumberFormat.currency(locale: "en_IN", symbol: "₹");
@@ -44,7 +45,7 @@ class _personalState extends State<personal> {
     void initState() {
         // TODO: implement initState
         super.initState();
-        expense=new Expense(0.00,"");
+        expense=new Expense("",0.0);
         final FirebaseDatabase database = FirebaseDatabase(app : Dashboard.app);
         expenseref = database.reference().child('Personal').child(Dashboard.getuser().uid);
         expenseref.onChildAdded.listen(_onEntryAdded);
@@ -56,7 +57,8 @@ class _personalState extends State<personal> {
         setState(() {
             for(int i=0;i < expenses.length;i++)
             {
-                print("$i " + expenses[i].amount.toString());
+                print(expenses[i].reason);
+                print(expenses[i].amount);
                 if(expenses[i].key == event.snapshot.key)
                 {
                     expenses.removeAt(i);
@@ -68,6 +70,7 @@ class _personalState extends State<personal> {
     _onEntryAdded(Event event){
 
         setState(() {
+            sum+=event.snapshot.value["amount"];
             expenses.add(Expense.fromSnapShot(event.snapshot));
         });
     }
@@ -154,6 +157,7 @@ class _personalState extends State<personal> {
                                   title: Text(expenses[index].reason),
                                   subtitle: Text(expenses[index].amount.toString()),
                               ),
+                              color: Colors.cyan,
                             );
                         }),
                 ),

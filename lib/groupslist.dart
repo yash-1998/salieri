@@ -123,6 +123,8 @@ class _GroupslistState extends State<Groupslist> {
                                   );
                                 }
 
+                                print("Reached here");
+
                                 childs.add(
                                     Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -137,9 +139,13 @@ class _GroupslistState extends State<Groupslist> {
                                             builder: (BuildContext context,AsyncSnapshot snapshot){
                                                     if(snapshot.hasData){
                                                         Map <dynamic,dynamic> m = snapshot.data.value;
-                                                        return ListTile(
-                                                            title: Text(m["name"]),
-                                                          //  subtitle: m["key"],
+                                                        return Card(
+                                                            child: new ListTile(
+                                                                    leading: Icon(Icons.attach_money),
+                                                                    title: Text(m["name"]),
+                                                            ),
+                                                            color: Colors.lightBlueAccent,
+
                                                         );
                                                     }
                                                     else{
@@ -158,26 +164,7 @@ class _GroupslistState extends State<Groupslist> {
                             }
 
                         }
-                    )
-
-
-
-
-//                    Flexible(
-//                        child: FirebaseAnimatedList(query: reference2,
-//                            itemBuilder: (BuildContext context,DataSnapshot snapshot,
-//                                Animation<double> animation,int index)
-//                            {
-//                                return Card(
-//                                    child: new ListTile(
-//                                        leading: Icon(Icons.attach_money),
-//                                        title: Text(groups[index].name),
-//                                        subtitle: Text(groups[index].key),
-//                                    ),
-//                                );
-//                            }),
-//                    ),
-                ,
+                    ),
             ),
             drawer: navigationdrawer(context),
         );
