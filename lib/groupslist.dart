@@ -40,12 +40,19 @@ class _GroupslistState extends State<Groupslist> {
 
                             if(snapshot.hasData){
 
-                                print(snapshot.data.value.runtimeType);
                                 List <dynamic> values =snapshot.data.value;
 
-                                for(int i=0;i<values.length;i++)
-                                    print(values[i]);
                                 List <Widget> childs = new List();
+
+                                if(values == null) {
+                                  return Container (
+                                    child: ListTile(
+                                      leading: Icon(Icons.thumb_down),
+                                      title: Text("No Groups to show"),
+                                    ),
+                                  );
+                                }
+
                                 childs.add(
                                     Padding(
                                         padding: const EdgeInsets.symmetric(

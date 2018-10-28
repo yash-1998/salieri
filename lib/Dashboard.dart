@@ -17,8 +17,6 @@ class Dashboard extends StatefulWidget {
     static FirebaseUser _user;
     static FirebaseApp app;
     DatabaseReference reference;
-    DatabaseReference reference2;
-    DatabaseReference reference3;
 
     Dashboard(FirebaseUser user,FirebaseApp fapp)
     {
@@ -26,22 +24,13 @@ class Dashboard extends StatefulWidget {
         app=fapp;
         Appuser appuser = Appuser.fromFirebase(_user);
         final FirebaseDatabase database = FirebaseDatabase(app : app);
-        Privateuser privateuser = new Privateuser();
-        reference = database.reference().child("Appusers").child(user.uid);
-        reference.set(appuser.toJson());
-        reference2 = database.reference().child("Privateusers").child(user.uid);
-        reference2.set(privateuser.toJson());
-        Groups groups = new Groups("abababab");
-        reference3 = database.reference().child("Groups");
-        reference3.push().set(groups.toJson());
+        database.reference().child("Appusers").child(user.uid).set(appuser.toJson());
         
     }
-    static FirebaseUser getuser()
-    {
+    static FirebaseUser getuser() {
         return _user;
     }
-    static FirebaseApp getapp()
-    {
+    static FirebaseApp getapp() {
         return app;
     }
 
