@@ -12,6 +12,8 @@ import 'package:salieri/navigationdrawer.dart';
 import 'package:salieri/expense.dart';
 import 'package:salieri/Appuser.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+import 'package:salieri/grouproute.dart';
+
 class Dashboard extends StatefulWidget {
 
     static FirebaseUser _user;
@@ -44,12 +46,14 @@ class _DashboardState extends State<Dashboard> {
   Expense expense;
   DatabaseReference expenseref;
   final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+  FirebaseDatabase database;
+
   @override
   void initState() {
     // TODO: implement initState
     super.initState();
     expense=new Expense("",0.0);
-    final FirebaseDatabase database = FirebaseDatabase(app : Dashboard.app);
+    database = FirebaseDatabase(app : Dashboard.app);
     expenseref = database.reference().child('Personal').child(Dashboard._user.uid);
     expenseref.onChildAdded.listen(_onEntryAdded);
     expenseref.onChildChanged.listen(_onEntryChanged);
@@ -64,9 +68,23 @@ class _DashboardState extends State<Dashboard> {
     final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.retrieveDynamicLink();
     final Uri uri = data?.link;
 
+    print(uri.toString());
     if(uri == null)
       return;
 
+    Map <String , String > m = uri.queryParameters;
+
+    //m['id'] has group key
+  }
+
+
+  Future<Groups> _getGroup(String key) {
+    Groups group;
+    database.reference().child("Groups").child(key).once().then(
+        (DataSnapshot snap) {
+          return Groups.fromSnapshot(snap);
+        }
+    );
   }
 
   _onEntryRemoved(Event event){

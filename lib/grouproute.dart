@@ -5,8 +5,6 @@ import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
-
-
 import 'package:salieri/groups.dart';
 
 class GroupRoute extends StatefulWidget {
@@ -44,16 +42,19 @@ class _GroupRouteState extends State<GroupRoute> {
   }
 
   void _getDynamicLink() async {
-    print(group.key);
-    String ll = 'https://salieri.com/groups?groupId=' + group.key;
+
+    String ll = 'https://salieri.com/group/?id=' + group.key;
     print(ll);
     final DynamicLinkParameters parameters = DynamicLinkParameters(
-        domain: 'salieri12345.page.link/testing',
+        domain: 'salieri12345.page.link/',
         link: Uri.parse(ll),
+        androidParameters: AndroidParameters(
+        packageName: 'com.example.salieri',
+      )
     );
 
     final Uri link  = await parameters.buildUrl();
 
-    Share.share(link.toString());
+    Share.share('Welcome to $link');
   }
 }
