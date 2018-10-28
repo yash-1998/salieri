@@ -82,7 +82,6 @@ class _GroupslistState extends State<Groupslist> {
                                       })
                                     );
                                   });
-
                                 }
                                 else
                                 {
@@ -122,9 +121,6 @@ class _GroupslistState extends State<Groupslist> {
                                     ),
                                   );
                                 }
-
-                                print("Reached here");
-
                                 childs.add(
                                     Padding(
                                         padding: const EdgeInsets.symmetric(
@@ -149,7 +145,10 @@ class _GroupslistState extends State<Groupslist> {
                                                         );
                                                     }
                                                     else{
-                                                        return CircularProgressIndicator();
+                                                        return CircularProgressIndicator(
+                                                            backgroundColor: Colors.blueAccent,
+                                                            strokeWidth: 2.0,
+                                                        );
                                                     }
                                             }
                                         )
@@ -160,7 +159,10 @@ class _GroupslistState extends State<Groupslist> {
                                 );
                             }
                             else{
-                                return CircularProgressIndicator();
+                                return CircularProgressIndicator(
+                                    backgroundColor: Colors.red,
+                                    strokeWidth: 2.0,
+                                );
                             }
 
                         }

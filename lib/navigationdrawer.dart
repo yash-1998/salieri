@@ -16,26 +16,36 @@ Widget navigationdrawer(BuildContext context){
                             ),
                         ),
                     new ListTile(
-                        title: new Text("Friend List"),
-                        leading: new Icon(Icons.assignment_ind),
-                        onTap: null
+                        title: new Text("Dashboard"),
+                        leading: new Icon(Icons.dashboard),
+                        onTap: (){
+                            Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => new Dashboard(Dashboard.getuser(),Dashboard.getapp())));
+                        },
                     ),
                     new ListTile(
                         title: new Text("Group List"),
                         leading: new Icon(Icons.group),
                         onTap: (){
-                            Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new Groupslist()));
+                            Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => new Groupslist()));
                         },
                     ),
                     new ListTile(
                         title: new Text("Personal Expenses"),
                         leading: new Icon(Icons.attach_money),
                         onTap: (){
-                            Navigator.of(context).push(new MaterialPageRoute(builder: (BuildContext context) => new personal()));
+                            Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => new personal()));
                         }
                     ),
                     new Divider(),
                     new ListTile(
+                        leading: Icon(Icons.settings),
+                        title: Text("Settings"),
+                        onTap: (){
+
+                        },
+                    ),
+                    new ListTile(
+                    leading: new Icon(Icons.subdirectory_arrow_left),
                     title: Text("SignOut"),
                     onTap: (){
                         googleapii.signout();

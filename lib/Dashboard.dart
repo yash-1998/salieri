@@ -127,6 +127,7 @@ class _DashboardState extends State<Dashboard> {
   Widget build(BuildContext context) {
 
       return Scaffold(
+
               appBar: new AppBar(
                   title: new Text("Dashboard"),
                   elevation: defaultTargetPlatform == TargetPlatform.android ? 5.0 : 0.0,
