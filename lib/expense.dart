@@ -5,7 +5,7 @@ class Expense
 {
     String key;
     String reason;
-    String amount;
+    double amount;
 
     Expense(this.amount,this.reason);
     Expense.fromSnapShot(DataSnapshot snapshot)

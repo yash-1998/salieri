@@ -7,6 +7,7 @@ import 'package:salieri/Appuser.dart';
 import 'package:salieri/Dashboard.dart';
 import 'package:salieri/expense.dart';
 import 'groups.dart';
+import 'package:salieri/grouproute.dart';
 
 
 class FancyFab extends StatefulWidget {
@@ -122,6 +123,11 @@ class _FancyFabState extends State<FancyFab>
                                       list1.add(list[i]);
                                     list1.add(key);
                                     reference.child("Privateusers").child(Dashboard.getuser().uid).child("Groupslist").set(list1);
+                                    Navigator.of(context).pushReplacement(
+                                        new MaterialPageRoute(builder: (BuildContext context) {
+                                          return GroupRoute(group);
+                                        })
+                                    );
                                   });
 
                                 }
@@ -257,6 +263,7 @@ class _FancyFabState extends State<FancyFab>
                                 ),
                               ),
                               TextField(
+                                keyboardType: TextInputType.number,
                                 controller: myController2,
                                 decoration: new InputDecoration(
                                   hintText: "200.35",
