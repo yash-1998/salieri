@@ -11,7 +11,7 @@ import 'personal.dart';
 import 'package:salieri/navigationdrawer.dart';
 import 'package:salieri/expense.dart';
 import 'package:salieri/Appuser.dart';
-
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 class Dashboard extends StatefulWidget {
 
     static FirebaseUser _user;
@@ -48,19 +48,32 @@ class _DashboardState extends State<Dashboard> {
   void initState() {
     // TODO: implement initState
     super.initState();
-    expense=new Expense("","");
+    expense=new Expense(0.00,"");
     final FirebaseDatabase database = FirebaseDatabase(app : Dashboard.app);
     expenseref = database.reference().child('Personal').child(Dashboard._user.uid);
     expenseref.onChildAdded.listen(_onEntryAdded);
     expenseref.onChildChanged.listen(_onEntryChanged);
     expenseref.onChildRemoved.listen(_onEntryRemoved);
+
+
+    _retrieveDynamicLink();
+
+  }
+
+  void _retrieveDynamicLink() async {
+    final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.retrieveDynamicLink();
+    final Uri uri = data?.link;
+
+    if(uri == null)
+      return;
+
   }
 
   _onEntryRemoved(Event event){
       setState(() {
         for(int i=0;i<expenses.length;i++)
         {
-            print("$i " + expenses[i].amount);
+            print("$i " + expenses[i].amount.toString());
             if(expenses[i].key == event.snapshot.key)
             {
                 expenses.removeAt(i);

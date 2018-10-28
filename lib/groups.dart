@@ -20,7 +20,8 @@ class Groups{
     List <Transaction> transactions = new List();
 
 
-    Groups(String name , String uid) {
+    Groups(String name , String uid , String key) {
+      this.key = key;
       this.name = name;
       this.members.add(uid);
     }

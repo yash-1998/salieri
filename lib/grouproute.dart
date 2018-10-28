@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:share/share.dart';
 
+import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
+
 
 import 'package:salieri/groups.dart';
 
@@ -31,13 +33,27 @@ class _GroupRouteState extends State<GroupRoute> {
           IconButton(
             icon: Icon(Icons.share),
             onPressed: () {
-              Share.share('Checkout Salieri');
+              _getDynamicLink();
             }
 
-        ),
-      ]
+          ),
+        ]
 
-    ),
-  );
+      ),
+    );
+  }
+
+  void _getDynamicLink() async {
+    print(group.key);
+    String ll = 'https://salieri.com/groups?groupId=' + group.key;
+    print(ll);
+    final DynamicLinkParameters parameters = DynamicLinkParameters(
+        domain: 'salieri12345.page.link/testing',
+        link: Uri.parse(ll),
+    );
+
+    final Uri link  = await parameters.buildUrl();
+
+    Share.share(link.toString());
   }
 }

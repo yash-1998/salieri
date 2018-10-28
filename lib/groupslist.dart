@@ -65,7 +65,7 @@ class _GroupslistState extends State<Groupslist> {
                                 if(myController.text!="" ) {
                                   DatabaseReference reference = FirebaseDatabase(app: Dashboard.getapp()).reference();
                                   String key = reference.child("Groups").push().key;
-                                  Groups group = new Groups(myController.text, Dashboard.getuser().uid);
+                                  Groups group = new Groups(myController.text, Dashboard.getuser().uid,key);
                                   reference.child("Groups").child(key).set(group.toJson());
                                   List <dynamic> list,list1=List();
                                   reference.child("Privateusers").child(Dashboard.getuser().uid).child("Groupslist").once().then((snap){

@@ -44,7 +44,7 @@ class _personalState extends State<personal> {
     void initState() {
         // TODO: implement initState
         super.initState();
-        expense=new Expense("","");
+        expense=new Expense(0.00,"");
         final FirebaseDatabase database = FirebaseDatabase(app : Dashboard.app);
         expenseref = database.reference().child('Personal').child(Dashboard.getuser().uid);
         expenseref.onChildAdded.listen(_onEntryAdded);
@@ -56,7 +56,7 @@ class _personalState extends State<personal> {
         setState(() {
             for(int i=0;i < expenses.length;i++)
             {
-                print("$i " + expenses[i].amount);
+                print("$i " + expenses[i].amount.toString());
                 if(expenses[i].key == event.snapshot.key)
                 {
                     expenses.removeAt(i);
@@ -152,7 +152,7 @@ class _personalState extends State<personal> {
                               child: new ListTile(
                                   leading: Icon(Icons.attach_money),
                                   title: Text(expenses[index].reason),
-                                  subtitle: Text(expenses[index].amount),
+                                  subtitle: Text(expenses[index].amount.toString()),
                               ),
                             );
                         }),
