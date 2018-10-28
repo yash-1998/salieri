@@ -6,6 +6,9 @@ import 'package:flutter/material.dart';
 import 'package:salieri/Appuser.dart';
 import 'package:salieri/Dashboard.dart';
 import 'package:salieri/expense.dart';
+import 'groups.dart';
+
+
 class FancyFab extends StatefulWidget {
     final Function() onPressed;
     final String tooltip;
@@ -77,10 +80,66 @@ class _FancyFabState extends State<FancyFab>
     }
 
     Widget add() {
+
+        TextEditingController myController = new TextEditingController();
         return Container(
             child: FloatingActionButton(
                 onPressed: () {
-                    Navigator.pushNamed(context, '/addnewgroup');
+                    showDialog(
+                        context: context,
+                        builder: (_) {
+                        return AlertDialog(
+                          title: new Text("Create New Group"),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                TextField(
+                                  controller: myController,
+                                  decoration: new InputDecoration(
+                                    hintText: "Marauders",
+                                    icon: new Icon(Icons.group),
+                                    labelText: "Group Name",
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            new FlatButton(
+                              child: Text("Add",style: new TextStyle(color: Colors.black87),),
+                              onPressed: () async {
+                                if(myController.text!="" ) {
+                                  DatabaseReference reference = FirebaseDatabase(app: Dashboard.getapp()).reference();
+                                  String key = reference.child("Groups").push().key;
+                                  Groups group = new Groups(myController.text, Dashboard.getuser().uid);
+                                  reference.child("Groups").child(key).set(group.toJson());
+                                  List <dynamic> list,list1=List();
+                                  reference.child("Privateusers").child(Dashboard.getuser().uid).child("Groupslist").once().then((snap){
+                                    list = snap.value;
+                                    if(list == null)
+                                      list = new List();
+                                    for(int i=0;i<list.length;i++)
+                                      list1.add(list[i]);
+                                    list1.add(key);
+                                    reference.child("Privateusers").child(Dashboard.getuser().uid).child("Groupslist").set(list1);
+                                  });
+
+                                }
+                                else
+                                {
+                                  Scaffold.of(context).showSnackBar(
+                                      new SnackBar(
+                                        content: new Text("Fields empty"),
+                                      )
+                                  );
+                                }
+                                Navigator.of(context).pop();
+                              },
+                            )
+                          ],
+                        );
+                      }
+                    );
                 },
                 heroTag: null,
                 foregroundColor: Colors.white,
@@ -102,43 +161,61 @@ class _FancyFabState extends State<FancyFab>
                 backgroundColor: Colors.blueAccent,
                 child: new Icon(Icons.person_add),
                 onPressed: () {
-
-                    showDialog(
-                        context: context ,
-                        builder: (_) {
-                            return AlertDialog(
-                                title: Text("Search User by Email"),
-                                content: SingleChildScrollView(
-                                    child: ListBody(
-                                        children: <Widget>[
-                                            TextField(
-                                                controller: myController,
-                                            ),
-                                        ],
-                                    ),
+                  showDialog(
+                    context: context ,
+                    builder: (_) {
+                      return AlertDialog(
+                        title: new Text("Add New Expense"),
+                        content: SingleChildScrollView(
+                          child: ListBody(
+                            children: <Widget>[
+                              TextField(
+                                controller: myController,
+                                decoration: new InputDecoration(
+                                  hintText: "abc.123@uvw.xyz",
+                                  icon: new Icon(Icons.email),
+                                  labelText: "Email",
                                 ),
-                                actions: <Widget>[
-                                    new FlatButton(
-                                        child: Text("Search" ,
-                                                     style: new TextStyle(color: Colors.black87),),
-                                        onPressed: () async {
-                                            Map result = await Navigator.pushReplacement(
-                                                context, new MaterialPageRoute(
-                                                builder: (
-                                                    BuildContext context) =>
-                                                    addnewfriend(myController.text)
-                                            ));
-                                            if(result["result"] == false) {
-                                                Scaffold.of(context).showSnackBar(new SnackBar(
-                                                    content: new Text("User Not Found"),
-                                                ));
-                                            }
-                                        })
-                                 ]
-                            );
+                              ),
+                            ],
+                          ),
+                        ),
+                        actions: <Widget>[
+                          new FlatButton(
+                            child: Text("Add",style: new TextStyle(color: Colors.black87),),
+                            onPressed: () async {
+                              if(myController.text!="" ) {
+                                Map <dynamic , dynamic > m = await Navigator.of(context).push(
+                                  new MaterialPageRoute(
+                                    builder: (BuildContext context) {
+                                      return addnewfriend(myController.text);
+                                    }
+                                  )
+                                );
 
-                        },
-                    );
+                                if(m["result"] == false) {
+                                  Scaffold.of(context).showSnackBar(SnackBar(
+                                        content: Text("User not found"),
+                                      )
+                                  );
+                                }
+                              }
+                              else
+                              {
+                                Scaffold.of(context).showSnackBar(
+                                    new SnackBar(
+                                      content: new Text("Fields empty"),
+                                    )
+                                );
+                              }
+                              Navigator.of(context).pop();
+                            },
+                          )
+                        ],
+                      );
+
+                    }
+                  );
                 }
             )
         );

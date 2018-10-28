@@ -16,26 +16,26 @@ class Groups{
 
     String key;
     String name;
-    List <String> members;
-    List <Transaction> transactions;
-    var created;
+    List <String> members = new List();
+    List <Transaction> transactions = new List();
 
 
-    Groups(this.name);
+    Groups(String name , String uid) {
+      this.name = name;
+      this.members.add(uid);
+    }
 
-    Groups.fromSnapshot(DataSnapshot snapshot)
-        :   key = snapshot.key,
-            name = snapshot.value['name'];
-           // members = snapshot.value['members'],
-           // transactions = snapshot.value['transactions'],
-            //created = snapshot.value['created'];
+    Groups.fromSnapshot(DataSnapshot snapshot):
+            key = snapshot.key,
+            name = snapshot.value['name'],
+            members = snapshot.value['members'],
+            transactions = snapshot.value['transactions'];
     toJson()
     {
         return {
             'name' : name,
-            //'members' : members,
-           // 'transactions' : transactions,
-            //'created' : created
+            'members' : members,
+            'transactions' : transactions,
         };
     }
 
