@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 
 class addnewgroup extends StatelessWidget {
 
-
     @override
     Widget build(BuildContext context) {
         return Scaffold(
