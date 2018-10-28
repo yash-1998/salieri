@@ -139,6 +139,12 @@ class _GroupslistState extends State<Groupslist> {
                                                             child: new ListTile(
                                                                     leading: Icon(Icons.attach_money),
                                                                     title: Text(m["name"]),
+                                                                    onTap: (){
+                                                                        Groups group = new Groups.fromSnapshot(snapshot.data);   
+                                                                        Navigator.of(context).push(new MaterialPageRoute(
+                                                                            builder: (BuildContext context) => new GroupRoute(group)
+                                                                        ));
+                                                                    },
                                                             ),
                                                             color: Colors.lightBlueAccent,
 

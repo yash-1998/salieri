@@ -16,7 +16,7 @@ class Groups{
 
     String key;
     String name;
-    List <String> members = new List();
+    List <dynamic> members = new List();
     List <Transaction> transactions = new List();
 
 
