@@ -26,6 +26,7 @@ dependencies:
   firebase_core:
   intl: ^0.15.7
   firebase_dynamic_links:
+  share:
 
 dev_dependencies:
   flutter_test:

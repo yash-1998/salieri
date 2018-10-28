@@ -10,6 +10,8 @@ import 'package:salieri/Dashboard.dart';
 import 'package:salieri/navigationdrawer.dart';
 import 'package:salieri/privateuser.dart';
 import 'package:salieri/groups.dart';
+import 'package:salieri/groups.dart';
+import 'package:salieri/grouproute.dart';
 
 class Groupslist extends StatefulWidget {
     @override
@@ -26,12 +28,80 @@ class _GroupslistState extends State<Groupslist> {
 
     @override
     Widget build(BuildContext context) {
+
+        TextEditingController myController = new TextEditingController();
         return Scaffold(
             appBar: new AppBar(
                 title: new Text("Your Groups"),
                 elevation: defaultTargetPlatform == TargetPlatform.android ? 5.0 : 0.0,
             ),
             resizeToAvoidBottomPadding: false,
+            floatingActionButton: FloatingActionButton(
+                child: Icon(Icons.group_add),
+                onPressed: () {
+                  showDialog(
+                      context: context,
+                      builder: (_) {
+                        return AlertDialog(
+                          title: new Text("Create New Group"),
+                          content: SingleChildScrollView(
+                            child: ListBody(
+                              children: <Widget>[
+                                TextField(
+                                  controller: myController,
+                                  decoration: new InputDecoration(
+                                    hintText: "Marauders",
+                                    icon: new Icon(Icons.group),
+                                    labelText: "Group Name",
+                                  ),
+                                ),
+                              ],
+                            ),
+                          ),
+                          actions: <Widget>[
+                            new FlatButton(
+                              child: Text("Add",style: new TextStyle(color: Colors.black87),),
+                              onPressed: () async {
+                                if(myController.text!="" ) {
+                                  DatabaseReference reference = FirebaseDatabase(app: Dashboard.getapp()).reference();
+                                  String key = reference.child("Groups").push().key;
+                                  Groups group = new Groups(myController.text, Dashboard.getuser().uid);
+                                  reference.child("Groups").child(key).set(group.toJson());
+                                  List <dynamic> list,list1=List();
+                                  reference.child("Privateusers").child(Dashboard.getuser().uid).child("Groupslist").once().then((snap){
+                                    list = snap.value;
+                                    if(list == null)
+                                      list = new List();
+                                    for(int i=0;i<list.length;i++)
+                                      list1.add(list[i]);
+                                    list1.add(key);
+                                    reference.child("Privateusers").child(Dashboard.getuser().uid).child("Groupslist").set(list1);
+                                    Navigator.of(context).pushReplacement(
+                                      new MaterialPageRoute(builder: (BuildContext context) {
+                                        return GroupRoute(group);
+                                      })
+                                    );
+                                  });
+
+                                }
+                                else
+                                {
+                                  Scaffold.of(context).showSnackBar(
+                                      new SnackBar(
+                                        content: new Text("Fields empty"),
+                                      )
+                                  );
+                                }
+                                Navigator.of(context).pop();
+                              },
+                            )
+                          ],
+                        );
+                      }
+                  );
+                },
+
+            ),
             body: Container(
                     child :
                     FutureBuilder(
