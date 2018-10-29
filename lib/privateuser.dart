@@ -12,6 +12,7 @@ import 'package:salieri/Appuser.dart';
 
 class Privateuser {
 
+    String key;
     List <String> groupslist ;
 
     Privateuser(){

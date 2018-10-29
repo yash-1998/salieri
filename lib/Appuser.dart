@@ -15,7 +15,6 @@ class Appuser {
     String username;
     String email;
     String photo;
-    int temp;
     Appuser(this.username,this.email,this.photo);
 
 
@@ -23,7 +22,6 @@ class Appuser {
         this.email = user.email;
         this.username = user.displayName;
         this.photo = user.photoUrl;
-
     }
 
     Appuser.fromSnapShot(DataSnapshot snapshot)

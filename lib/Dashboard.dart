@@ -171,9 +171,84 @@ class _DashboardState extends State<Dashboard> {
                   title: new Text("Dashboard"),
                   elevation: defaultTargetPlatform == TargetPlatform.android ? 5.0 : 0.0,
               ),
-              body: new Column(
+          resizeToAvoidBottomPadding: false,
+          body: Column(
                   children: <Widget>[
+                      Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0,
+                          ),
+                          child: Card(
+                              color: Colors.white,
+                              child: Column(
+                                  children: <Widget>[
+                                      ListTile(
+                                          title: Text("Total Credit ",
+                                              style: TextStyle(
+                                                  fontFamily: "Impact",
+                                                  color: Colors.green,
+                                                  fontSize: 48.0,
+                                              ),
+                                          ),
+                                          subtitle: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                  Text(
+                                                      "",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontStyle: FontStyle.normal,
+                                                          fontSize: 18.0,
+                                                      ),
 
+                                                  ),
+                                                  //Date and Time
+                                                  Text(" 18",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontStyle: FontStyle.italic,
+                                                      ),
+                                                  )
+                                              ],
+                                          ),
+                                      ),
+                                      ListTile(
+                                          title: Text("Total Debit ",
+                                              style: TextStyle(
+                                                  fontFamily: "Impact",
+                                                  color: Colors.green,
+                                                  fontSize: 48.0,
+                                              ),
+                                          ),
+                                          subtitle: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
+                                                  Text(
+                                                      "",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontStyle: FontStyle.normal,
+                                                          fontSize: 18.0,
+                                                      ),
+
+                                                  ),
+                                                  //Date and Time
+                                                  Text("50 ",
+                                                      textAlign: TextAlign.left,
+                                                      style: TextStyle(
+                                                          fontStyle: FontStyle.italic,
+                                                      ),
+                                                  )
+                                              ],
+                                          ),
+                                      ),
+                                      new Padding(
+                                          padding: const EdgeInsets.all(10.0),
+                                      ),
+                                  ],
+                              ),
+                          ),
+                      ),
                   ],
               ),
               drawer: navigationdrawer(context),
