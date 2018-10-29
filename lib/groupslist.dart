@@ -25,7 +25,13 @@ class _GroupslistState extends State<Groupslist> {
     DatabaseReference reference;
     DatabaseReference reference2;
     FirebaseDatabase database =  FirebaseDatabase(app : Dashboard.app);
+    List<Widget> groupswidget = new List();
 
+    _GroupslistState(){
+
+        List <Widget> temp = new List();
+
+    }
     @override
     Widget build(BuildContext context) {
 
@@ -101,9 +107,9 @@ class _GroupslistState extends State<Groupslist> {
                 },
 
             ),
-            body: Container(
-                    child :
-                    FutureBuilder(
+            body: Column(
+                    children: <Widget>[
+                        FutureBuilder(
                         future: database.reference().child("Privateusers").child(Dashboard.getuser().uid).child("Groupslist").once(),
                         builder:  (BuildContext context, AsyncSnapshot snapshot){
 
@@ -114,12 +120,12 @@ class _GroupslistState extends State<Groupslist> {
                                 List <Widget> childs = new List();
 
                                 if(values == null) {
-                                  return Container (
-                                    child: ListTile(
-                                      leading: Icon(Icons.thumb_down),
-                                      title: Text("No Groups to show"),
-                                    ),
-                                  );
+                                    return Container (
+                                        child: ListTile(
+                                            leading: Icon(Icons.thumb_down),
+                                            title: Text("No Groups to show"),
+                                        ),
+                                    );
                                 }
                                 childs.add(
                                     Padding(
@@ -133,36 +139,38 @@ class _GroupslistState extends State<Groupslist> {
                                         FutureBuilder(
                                             future : database.reference().child("Groups").child(values[i]).once(),
                                             builder: (BuildContext context,AsyncSnapshot snapshot){
-                                                    if(snapshot.hasData){
-                                                        Map <dynamic,dynamic> m = snapshot.data.value;
-                                                        return Card(
-                                                            child: new ListTile(
-                                                                    leading: Icon(Icons.attach_money),
-                                                                    title: Text(m["name"]),
-                                                                    onTap: (){
-                                                                        Groups group = new Groups.fromSnapshot(snapshot.data);
-                                                                        print(group.key);
-                                                                        Navigator.of(context).push(new MaterialPageRoute(
-                                                                            builder: (BuildContext context) => new GroupRoute(group)
-                                                                        ));
-                                                                    },
-                                                            ),
-                                                            color: Colors.lightBlueAccent,
+                                                if(snapshot.hasData){
+                                                    Map <dynamic,dynamic> m = snapshot.data.value;
+                                                    return Card(
+                                                        child: new ListTile(
+                                                            leading: Icon(Icons.attach_money),
+                                                            title: Text(m["name"]),
+                                                            onTap: (){
+                                                                Groups group = new Groups.fromSnapshot(snapshot.data);
+                                                                print(group.key);
+                                                                Navigator.of(context).push(new MaterialPageRoute(
+                                                                    builder: (BuildContext context) => new GroupRoute(group)
+                                                                ));
+                                                            },
+                                                        ),
+                                                        color: Colors.lightBlueAccent,
 
-                                                        );
-                                                    }
-                                                    else{
-                                                        return CircularProgressIndicator(
-                                                            backgroundColor: Colors.blueAccent,
-                                                            strokeWidth: 2.0,
-                                                        );
-                                                    }
+                                                    );
+                                                }
+                                                else{
+                                                    return CircularProgressIndicator(
+                                                        backgroundColor: Colors.blueAccent,
+                                                        strokeWidth: 2.0,
+                                                    );
+                                                }
                                             }
                                         )
                                     );
 
-                                return Column(
-                                    children : childs
+                                return Flexible(
+                                    child: ListView(
+                                        children: childs,
+                                    ),
                                 );
                             }
                             else{
@@ -174,6 +182,7 @@ class _GroupslistState extends State<Groupslist> {
 
                         }
                     ),
+                ],
             ),
             drawer: navigationdrawer(context),
         );
