@@ -82,7 +82,6 @@ class _NewtransactionState extends State<Newtransaction> {
             elevation: defaultTargetPlatform == TargetPlatform.android ? 5.0 : 0.0,
         ),
         resizeToAvoidBottomPadding: false,
-        drawer: navigationdrawer(context),
         body: new Column(
                 crossAxisAlignment: CrossAxisAlignment.center,
                 mainAxisAlignment: MainAxisAlignment.start,

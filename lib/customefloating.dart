@@ -123,7 +123,7 @@ class _FancyFabState extends State<FancyFab>
                                       list1.add(list[i]);
                                     list1.add(key);
                                     reference.child("Privateusers").child(Dashboard.getuser().uid).child("Groupslist").set(list1);
-                                    Navigator.of(context).pushReplacement(
+                                    Navigator.of(context).push(
                                         new MaterialPageRoute(builder: (BuildContext context) {
                                           return GroupRoute(group);
                                         })

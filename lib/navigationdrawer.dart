@@ -4,7 +4,7 @@ import 'package:salieri/groupslist.dart';
 import 'personal.dart';
 import 'package:salieri/Dashboard.dart';
 
-Widget navigationdrawer(BuildContext context){
+Widget navigationdrawer(BuildContext context,int x){
     return  Drawer(
                 child: new ListView(
                 children: <Widget>[
@@ -16,21 +16,21 @@ Widget navigationdrawer(BuildContext context){
                             ),
                         ),
                     new ListTile(
-                        title: new Text("Dashboard"),
+                        title: new Text("Dashboard" , style: new TextStyle(color: x==0 ? Colors.blue : Colors.black),),
                         leading: new Icon(Icons.dashboard),
                         onTap: (){
                             Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => new Dashboard(Dashboard.getuser(),Dashboard.getapp())));
                         },
                     ),
                     new ListTile(
-                        title: new Text("Group List"),
+                        title: new Text("Group List" ,style: new TextStyle(color: x==1 ? Colors.blue : Colors.black),),
                         leading: new Icon(Icons.group),
                         onTap: (){
                             Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => new Groupslist()));
                         },
                     ),
                     new ListTile(
-                        title: new Text("Personal Expenses"),
+                        title: new Text("Personal Expenses" ,style: new TextStyle(color: x==2 ? Colors.blue : Colors.black),),
                         leading: new Icon(Icons.attach_money),
                         onTap: (){
                             Navigator.of(context).pushReplacement(new MaterialPageRoute(builder: (BuildContext context) => new personal()));

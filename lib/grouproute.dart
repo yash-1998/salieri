@@ -1,10 +1,10 @@
 import 'package:firebase_database/firebase_database.dart';
-import 'package:firebase_database/ui/firebase_animated_list.dart';
+//import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:intl/intl.dart';
+//import 'package:flutter/services.dart';
+//import 'package:intl/intl.dart';
 import 'package:salieri/Appuser.dart';
 import 'package:salieri/navigationdrawer.dart';
 import 'package:salieri/newtransaction.dart';
@@ -75,7 +75,7 @@ class _GroupRouteState extends State<GroupRoute> {
                   if(m == null)
                       m = new Map();
                   print(" M iinfo  ");
-                  print(m.length);
+                 // print(m.length);
                   print(m.runtimeType);
 
                   List<Widget> arr = new List();
@@ -172,7 +172,7 @@ class _GroupRouteState extends State<GroupRoute> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      drawer: navigationdrawer(context),
+      //drawer: navigationdrawer(context),
       appBar: AppBar(
 
           title: Text(group.name),

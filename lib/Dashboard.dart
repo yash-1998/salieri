@@ -13,6 +13,7 @@ import 'package:salieri/expense.dart';
 import 'package:salieri/Appuser.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:salieri/grouproute.dart';
+import "package:intl/intl.dart";
 
 class Dashboard extends StatefulWidget {
 
@@ -160,98 +161,123 @@ class _DashboardState extends State<Dashboard> {
             expenseref.push().set(expense.toJson());
         }
     }
+    String _sumcredit(){
+        double val = 1000.000;
+
+        String val1;
+        var k =  new NumberFormat.currency(locale: "en_IN", symbol: "₹");
+        val1 = k.format(val);
+        return val1;
+    }
+    String _sumdebit(){
+      double val = 56284.0;
+
+      String val1;
+      var k =  new NumberFormat.currency(locale: "en_IN", symbol: "₹");
+      val1 = k.format(val);
+      return val1;
+    }
 
     @override
     Widget build(BuildContext context) {
 
         return Scaffold(
+             appBar: new AppBar(
+                  title: new Text("Dashboard"),
+                  elevation: defaultTargetPlatform == TargetPlatform.android ? 5.0 : 0.0,
+              ),
+          resizeToAvoidBottomPadding: false,
+          body: Column(
+                  children: <Widget>[
+                      Padding(
+                          padding: const EdgeInsets.symmetric(
+                              vertical: 8.0,
+                          ),
+                          child: Column(
+                              children: <Widget>[
+                                  Padding(
+                                      padding: const EdgeInsets.symmetric(
+                                          vertical: 8.0,
+                                      ),
+                                      child: Card(
+                                          color: Colors.white,
+                                          child: Column(
+                                              children: <Widget>[
+                                                  ListTile(
+                                                      title: Text(
+                                                          _sumdebit(),
+                                                          style: TextStyle(
+                                                              fontFamily: "Impact",
+                                                              color: Colors.redAccent,
+                                                              fontSize: 48.0,
+                                                          ),
+                                                      ),
+                                                      subtitle: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
+                                                          children: <Widget>[
+                                                              Text(
+                                                                  "Total Debit",
+                                                                  textAlign: TextAlign.left,
+                                                                  style: TextStyle(
+                                                                      fontStyle: FontStyle.italic,
+                                                                      fontSize: 18.0,
+                                                                  ),
 
-            appBar: new AppBar(
-                title: new Text("Dashboard"),
-                elevation: defaultTargetPlatform == TargetPlatform.android ? 5.0 : 0.0,
-            ),
-            resizeToAvoidBottomPadding: false,
-            body: Column(
-                children: <Widget>[
-                    Padding(
-                        padding: const EdgeInsets.symmetric(
-                            vertical: 8.0,
-                        ),
-                        child: Card(
-                            color: Colors.white,
-                            child: Column(
-                                children: <Widget>[
-                                    ListTile(
-                                        title: Text("Total Credit ",
-                                            style: TextStyle(
+                                                              ),
+                                                              //Date and Time
+
+                                                          ],
+                                                      ),
+                                                  )
+                                              ],
+                                          ),
+                                      ),
+                                  ),
+                                  Padding(
+                                    padding: const EdgeInsets.symmetric(
+                                      vertical: 8.0,
+                                    ),
+                                    child: Card(
+                                      color: Colors.white,
+                                      child: Column(
+                                        children: <Widget>[
+                                          ListTile(
+                                            title: Text(
+                                              _sumcredit(),
+                                              style: TextStyle(
                                                 fontFamily: "Impact",
-                                                color: Colors.green,
+                                                color: Colors.blueAccent,
                                                 fontSize: 48.0,
+                                              ),
                                             ),
-                                        ),
-                                        subtitle: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: <Widget>[
+                                            subtitle: Column(
+                                              crossAxisAlignment: CrossAxisAlignment.start,
+                                              children: <Widget>[
                                                 Text(
-                                                    "",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        fontStyle: FontStyle.normal,
-                                                        fontSize: 18.0,
-                                                    ),
+                                                  "Total Credit",
+                                                  textAlign: TextAlign.left,
+                                                  style: TextStyle(
+                                                    fontStyle: FontStyle.italic,
+                                                    fontSize: 18.0,
+                                                  ),
 
                                                 ),
                                                 //Date and Time
-                                                Text(" 18",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        fontStyle: FontStyle.italic,
-                                                    ),
-                                                )
-                                            ],
-                                        ),
-                                    ),
-                                    ListTile(
-                                        title: Text("Total Debit ",
-                                            style: TextStyle(
-                                                fontFamily: "Impact",
-                                                color: Colors.green,
-                                                fontSize: 48.0,
-                                            ),
-                                        ),
-                                        subtitle: Column(
-                                            crossAxisAlignment: CrossAxisAlignment.start,
-                                            children: <Widget>[
-                                                Text(
-                                                    "",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        fontStyle: FontStyle.normal,
-                                                        fontSize: 18.0,
-                                                    ),
 
-                                                ),
-                                                //Date and Time
-                                                Text("50 ",
-                                                    textAlign: TextAlign.left,
-                                                    style: TextStyle(
-                                                        fontStyle: FontStyle.italic,
-                                                    ),
-                                                )
-                                            ],
-                                        ),
+                                              ],
+                                            ),
+                                          )
+                                        ],
+                                      ),
                                     ),
-                                    new Padding(
-                                        padding: const EdgeInsets.all(10.0),
-                                    ),
-                                ],
-                            ),
-                        ),
-                    ),
-                ],
-            ),
-            drawer: navigationdrawer(context),
-            floatingActionButton: new FancyFab()
-        );
+                                  ),
+                              ],
+                          ),
+                      ),
+                  ],
+              ),
+              drawer: navigationdrawer(context,0),
+              floatingActionButton: new FancyFab()
+      );
     }
 }
