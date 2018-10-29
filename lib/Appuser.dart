@@ -15,8 +15,9 @@ class Appuser {
     String username;
     String email;
     String photo;
-
+    int temp;
     Appuser(this.username,this.email,this.photo);
+
 
     Appuser.fromFirebase(FirebaseUser user) {
         this.email = user.email;

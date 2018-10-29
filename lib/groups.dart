@@ -17,7 +17,6 @@ class Groups{
     String key;
     String name;
     List <dynamic> members = new List();
-    List <Transaction> transactions = new List();
 
 
     Groups(String name , String uid , String key) {
@@ -35,7 +34,6 @@ class Groups{
         return {
             'name' : name,
             'members' : members,
-            'transactions' : transactions,
         };
     }
 

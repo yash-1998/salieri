@@ -6,22 +6,19 @@ class Transaction
     String key;
     String sender;
     String receiver;
-    int amount;
+    double amount;
     String reason;
-    String groupid;
-    var timestamp ;
+   // var timestamp ;
 
-    Transaction(this.sender, this.receiver, this.amount, this.reason,
-        this.groupid, this.timestamp);
+    Transaction(this.sender, this.receiver, this.amount, this.reason);
 
     Transaction.fromSnapShot(DataSnapshot snapshot)
         : key = snapshot.key,
             sender = snapshot.value['sender'],
             receiver= snapshot.value['receiver'],
             amount = snapshot.value['amount'],
-            reason = snapshot.value['reason'],
-            groupid= snapshot.value['groupid'],
-            timestamp = snapshot.value['timestamp'];
+            reason = snapshot.value['reason'];
+           // timestamp = snapshot.value['timestamp'];
 
     toJson()
     {
@@ -30,8 +27,7 @@ class Transaction
             'receiver' : receiver,
             'amount' : amount,
             'reason' :  reason,
-            'groupid' : groupid,
-            'timestamp' :timestamp
+            //'timestamp' :timestamp
         };
     }
 }

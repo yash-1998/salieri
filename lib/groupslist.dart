@@ -140,7 +140,8 @@ class _GroupslistState extends State<Groupslist> {
                                                                     leading: Icon(Icons.attach_money),
                                                                     title: Text(m["name"]),
                                                                     onTap: (){
-                                                                        Groups group = new Groups.fromSnapshot(snapshot.data);   
+                                                                        Groups group = new Groups.fromSnapshot(snapshot.data);
+                                                                        print(group.key);
                                                                         Navigator.of(context).push(new MaterialPageRoute(
                                                                             builder: (BuildContext context) => new GroupRoute(group)
                                                                         ));

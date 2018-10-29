@@ -42,14 +42,14 @@ class Dashboard extends StatefulWidget {
 
 class _DashboardState extends State<Dashboard> {
 
-  List<Expense> expenses = List();
-  Expense expense;
-  DatabaseReference expenseref;
-  final GlobalKey<FormState> formKey = GlobalKey<FormState>();
-  FirebaseDatabase database;
+    List<Expense> expenses = List();
+    Expense expense;
+    DatabaseReference expenseref;
+    final GlobalKey<FormState> formKey = GlobalKey<FormState>();
+    FirebaseDatabase database;
 
-  @override
-  void initState() {
+    @override
+    void initState() {
     // TODO: implement initState
     super.initState();
     expense=new Expense("",0.0);
@@ -62,32 +62,71 @@ class _DashboardState extends State<Dashboard> {
 
     _retrieveDynamicLink();
 
-  }
-
-  void _retrieveDynamicLink() async {
-    final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.retrieveDynamicLink();
-    final Uri uri = data?.link;
-
-    print(uri.toString());
-    if(uri == null)
-      return;
-
-    Map <String , String > m = uri.queryParameters;
-
-    //m['id'] has group key
-  }
+    }
 
 
-  Future<Groups> _getGroup(String key) {
-    Groups group;
-    database.reference().child("Groups").child(key).once().then(
-        (DataSnapshot snap) {
-          return Groups.fromSnapshot(snap);
-        }
-    );
-  }
 
-  _onEntryRemoved(Event event){
+    void _retrieveDynamicLink() async {
+        final PendingDynamicLinkData data = await FirebaseDynamicLinks.instance.retrieveDynamicLink();
+        final Uri uri = data?.link;
+
+        print(uri.toString());
+        if(uri == null)
+          return;
+
+        Map <String , String > m = uri.queryParameters;
+
+
+
+        Groups groups = await database.reference().child("Groups").child(m['id']).once().then(
+            (DataSnapshot snap) {
+                if(snap.value != null)
+                    return Groups.fromSnapshot(snap);
+                else
+                    return null;
+            }
+        );
+
+        if(groups != null)
+            if(groups.members.contains(Dashboard.getuser().uid))
+                Navigator.push(context, MaterialPageRoute(builder: (_) => GroupRoute(groups)));
+            else {
+                List <String> temp = List();
+                for(int i=0;i<groups.members.length;i++)
+                    temp.add(groups.members[i]);
+                temp.add(Dashboard.getuser().uid);
+                groups.members = temp;
+                database.reference().child("Groups").child(groups.key).child("members").set(temp);
+                List <dynamic> list,list1=List();
+                database.reference().child("Privateusers").child(Dashboard.getuser().uid).child("Groupslist").once().then(
+                        (snap){
+                            list = snap.value;
+                            if(list == null)
+                                list = new List();
+                            for(int i=0;i<list.length;i++)
+                                list1.add(list[i]);
+                            list1.add(groups.key);
+                            database.reference().child("Privateusers").child(Dashboard.getuser().uid).child("Groupslist").set(list1);
+                        }
+                );
+                Navigator.push(context, MaterialPageRoute(builder: (_) => GroupRoute(groups)));
+            }
+
+        else
+            showDialog(
+                context: context ,
+                builder: (_) {
+                    return AlertDialog(
+                        title: Text("Oops!"),
+                        content: Text("Group does not exists"),
+                    );
+                }
+            );
+
+
+    }
+
+    _onEntryRemoved(Event event){
       setState(() {
         for(int i=0;i<expenses.length;i++)
         {
@@ -98,21 +137,21 @@ class _DashboardState extends State<Dashboard> {
             }
         }
     });
-  }
-  _onEntryAdded(Event event){
+    }
+    _onEntryAdded(Event event){
       setState(() {
           expenses.add(Expense.fromSnapShot(event.snapshot));
       });
-  }
-  _onEntryChanged(Event event){
+    }
+    _onEntryChanged(Event event){
       var old = expenses.singleWhere((entry){
           return entry.key == event.snapshot.key;
       });
       setState(() {
           expenses[expenses.indexOf(old)] = Expense.fromSnapShot(event.snapshot);
       });
-  }
-  void handlesubmit(){
+    }
+    void handlesubmit(){
       final FormState form = formKey.currentState;
       if(form.validate()){
           form.save();
@@ -121,10 +160,10 @@ class _DashboardState extends State<Dashboard> {
           print(expense.amount);
           expenseref.push().set(expense.toJson());
       }
-  }
+    }
 
-  @override
-  Widget build(BuildContext context) {
+    @override
+    Widget build(BuildContext context) {
 
       return Scaffold(
 
@@ -140,5 +179,5 @@ class _DashboardState extends State<Dashboard> {
               drawer: navigationdrawer(context),
               floatingActionButton: new FancyFab()
       );
-  }
+    }
 }
