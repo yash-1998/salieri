@@ -118,8 +118,9 @@ class _GroupslistState extends State<Groupslist> {
                                 List <dynamic> values =snapshot.data.value;
 
                                 List <Widget> childs = new List();
-
+                                print(values);
                                 if(values == null) {
+
                                     return Container (
                                         child: ListTile(
                                             leading: Icon(Icons.thumb_down),
@@ -141,6 +142,7 @@ class _GroupslistState extends State<Groupslist> {
                                             builder: (BuildContext context,AsyncSnapshot snapshot){
                                                 if(snapshot.hasData){
                                                     Map <dynamic,dynamic> m = snapshot.data.value;
+
                                                     return Card(
                                                         child: new ListTile(
                                                             leading: Icon(Icons.attach_money),

@@ -1,16 +1,10 @@
 import 'package:firebase_database/firebase_database.dart';
-//import 'package:firebase_database/ui/firebase_animated_list.dart';
 import 'package:flutter/cupertino.dart';
-
 import 'package:flutter/material.dart';
-//import 'package:flutter/services.dart';
-//import 'package:intl/intl.dart';
 import 'package:salieri/Appuser.dart';
-import 'package:salieri/navigationdrawer.dart';
 import 'package:salieri/newtransaction.dart';
 import 'package:share/share.dart';
 import 'package:salieri/Dashboard.dart';
-
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:salieri/groups.dart';
 
@@ -129,8 +123,6 @@ class _GroupRouteState extends State<GroupRoute> {
               }
           )
     );
-        print("hello");
-        print(childd.length);
         return childd;
   }
   List<Widget> _getmember(){
