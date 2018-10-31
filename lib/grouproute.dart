@@ -1,3 +1,5 @@
+import 'dart:io';
+
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +10,12 @@ import 'package:salieri/Dashboard.dart';
 import 'package:firebase_dynamic_links/firebase_dynamic_links.dart';
 import 'package:salieri/groups.dart';
 
+class Twousers{
+
+    Appuser user1;
+    Appuser user2;
+    Twousers(this.user1,this.user2);
+}
 class GroupRoute extends StatefulWidget {
 
   Groups group;
@@ -28,7 +36,7 @@ class _GroupRouteState extends State<GroupRoute> {
   TextEditingController t2=new TextEditingController();
   List<Appuser> appusers ;
   Map <String,String> mapp = new Map();
-  _GroupRouteState(Groups gr){
+  _GroupRouteState(Groups gr) {
 
     appusers = new List();
     this.group = gr;
@@ -57,8 +65,8 @@ class _GroupRouteState extends State<GroupRoute> {
 
   List<Widget> _getquerytransactions(){
 
-    List<Widget> childd=new List();
-
+      print("Slleepp");
+      List<Widget> childd=new List();
     print(group.key);
     childd.add(
         FutureBuilder(
@@ -85,7 +93,15 @@ class _GroupRouteState extends State<GroupRoute> {
                    arr.add(Card(
                           child: new ListTile(
                             leading: Icon(Icons.person),
-                            title: Text( "Sender:" + mapp[v["sender"]] + "\nReceiver:" + mapp[v["receiver"]],style: new TextStyle(color: Colors.black),),
+                            title: FutureBuilder(
+                                future : Future.wait([database.reference().child("Appusers").child(v['sender']).once(),database.reference().child("Appusers").child(v['receiver']).once()])
+                                .then((response) => new Twousers(Appuser.fromSnapShot(response[0]),Appuser.fromSnapShot(response[1]))),
+                                builder: (context, AsyncSnapshot<Twousers> snapshot) {
+
+                                    return Text( "Sender:" + snapshot.data.user1.username + "\nReceiver:" + snapshot.data.user2.username,style: new TextStyle(color: Colors.black));
+
+                                },
+                            ),
                             subtitle: Text(v["reason"]),
                             trailing: Text("₹" + v["amount"].toString(),style: new TextStyle(color: Colors.purpleAccent),),
                           ),
