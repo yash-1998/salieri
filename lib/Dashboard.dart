@@ -52,6 +52,8 @@ class _DashboardState extends State<Dashboard> {
     void initState() {
         // TODO: implement initState
         super.initState();
+
+        print("init");
         expense=new Expense("",0.0);
         database = FirebaseDatabase(app : Dashboard.app);
         expenseref = database.reference().child('Personal').child(Dashboard._user.uid);
@@ -63,6 +65,8 @@ class _DashboardState extends State<Dashboard> {
         _retrieveDynamicLink();
 
     }
+
+
 
 
 
@@ -276,7 +280,7 @@ class _DashboardState extends State<Dashboard> {
                       ),
                   ],
               ),
-              drawer: navigationdrawer(context,0),
+              drawer: navigationdrawer(context),
               floatingActionButton: new FancyFab()
       );
     }
