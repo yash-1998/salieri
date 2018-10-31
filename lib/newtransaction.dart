@@ -30,7 +30,6 @@ class _NewtransactionState extends State<Newtransaction> {
     FirebaseDatabase database =  FirebaseDatabase(app : Dashboard.app);
     @override
     void initState() {
-        _dropDownMenuItems = getDropDownMenuItems();
         super.initState();
     }
 
@@ -44,6 +43,11 @@ class _NewtransactionState extends State<Newtransaction> {
       this.group=gr;
       this.appusers=appusers;
       this._dropDownMenuItems = getDropDownMenuItems();
+      print(group.key + " " + group.name);
+      appusers.forEach( (user) {
+          print(user.key + " " + user.username);
+        }
+      );
   }
 
   List<DropdownMenuItem<String>> getDropDownMenuItems() {
@@ -82,69 +86,73 @@ class _NewtransactionState extends State<Newtransaction> {
             elevation: defaultTargetPlatform == TargetPlatform.android ? 5.0 : 0.0,
         ),
         resizeToAvoidBottomPadding: false,
-        body: new Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: <Widget>[
-                    Padding(padding: new EdgeInsets.only(top : 10.0),),
-                    new Text("Choose Who Paid (Sender)"),
-                    Padding(padding: new EdgeInsets.all(10.0),),
-                    new DropdownButton(value:_sender,items: _dropDownMenuItems, onChanged: changedDropDownItem),
-                    Padding(padding: new EdgeInsets.all(10.0),),
-                    new Text("Choose for Whom Paid (Receiver)"),
-                    Padding(padding: new EdgeInsets.all(10.0),),
-                    new DropdownButton(value:_receiver,items: _dropDownMenuItems, onChanged: changedDropDownItem2),
-                    new TextField(
-                        keyboardType: TextInputType.number,
-                        controller: myController,
-                        decoration: new InputDecoration(
-                            hintText: "23156",
-                            icon: new Icon(Icons.monetization_on),
-                            labelText: "Amount",
+        body: Builder (
+          builder : (BuildContext context) {
+            return new Column(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: <Widget>[
+                Padding(padding: new EdgeInsets.only(top : 10.0),),
+                new Text("Choose Who Paid (Sender)"),
+                Padding(padding: new EdgeInsets.all(10.0),),
+                new DropdownButton(value:_sender,items: _dropDownMenuItems, onChanged: changedDropDownItem),
+                Padding(padding: new EdgeInsets.all(10.0),),
+                new Text("Choose for Whom Paid (Receiver)"),
+                Padding(padding: new EdgeInsets.all(10.0),),
+                new DropdownButton(value:_receiver,items: _dropDownMenuItems, onChanged: changedDropDownItem2),
+                new TextField(
+                  keyboardType: TextInputType.number,
+                  controller: myController,
+                  decoration: new InputDecoration(
+                    hintText: "23156",
+                    icon: new Icon(Icons.monetization_on),
+                    labelText: "Amount",
 
-                        ),
-                    ),
-                    Padding(padding: new EdgeInsets.all(10.0),),
-                    new TextField(
-                        controller: myController2,
-                        decoration: new InputDecoration(
-                            hintText: "Hangout",
-                            icon: new Icon(Icons.rate_review),
-                            labelText: "Reason",
+                  ),
+                ),
+                Padding(padding: new EdgeInsets.all(10.0),),
+                new TextField(
+                  controller: myController2,
+                  decoration: new InputDecoration(
+                    hintText: "Hangout",
+                    icon: new Icon(Icons.rate_review),
+                    labelText: "Reason",
 
-                        ),
-                    ),
-                    Padding(padding: new EdgeInsets.all(16.0),),
-                    RaisedButton(
-                        child: Text("Add Transaction",style: new TextStyle(color: Colors.black87),),
-                        onPressed: (){
-                            print(_sender);
-                            print(_receiver);
-                            print(myController.text);
-                            print(myController2.text);
-                            var timestamp = new DateTime.now();
-                            print(timestamp);
-                            if(_sender==null || _receiver==null || myController.text=="" || myController2.text=="")
-                            {
-                                Scaffold.of(context).showSnackBar(
-                                    new SnackBar(
-                                        content: new Text("Fields are not filled properly"),
-                                    )
-                                );
-                            }
-                            else{
-                                List <Transaction> transactions = new List();
+                  ),
+                ),
+                Padding(padding: new EdgeInsets.all(16.0),),
+                RaisedButton(
+                  child: Text("Add Transaction",style: new TextStyle(color: Colors.black87),),
+                  onPressed: (){
+                    print(_sender);
+                    print(_receiver);
+                    print(myController.text);
+                    print(myController2.text);
+                    var timestamp = new DateTime.now();
+                    print(timestamp);
+                    if(_sender==null || _receiver==null || myController.text=="" || myController2.text=="")
+                    {
+                      Scaffold.of(context).showSnackBar(
+                          new SnackBar(
+                            content: new Text("Fields are not filled properly"),
+                          )
+                      );
+                    }
+                    else{
+                      List <Transaction> transactions = new List();
 
-                                Transaction transaction =new Transaction(_sender, _receiver, double.parse(myController.text.toString()), myController2.text);
-                                database.reference().child("Groups").child(group.key).child("Transactions").push().set(transaction.toJson());
-                                print("Transaction entered");
-                                Navigator.of(context).pushReplacement(new MaterialPageRoute(
-                                   builder: (BuildContext context)=>new GroupRoute(group)
-                                ));
-                            }
-                        },
-                    ),
-                ],
+                      Transaction transaction =new Transaction(_sender, _receiver, double.parse(myController.text.toString()), myController2.text);
+                      database.reference().child("Groups").child(group.key).child("Transactions").push().set(transaction.toJson());
+                      print("Transaction entered");
+                      Navigator.of(context).pushReplacement(new MaterialPageRoute(
+                          builder: (BuildContext context)=>new GroupRoute(group)
+                      ));
+                    }
+                  },
+                ),
+              ],
+            );
+          }
         ),
     );
   }

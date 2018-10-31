@@ -184,7 +184,6 @@ class _GroupslistState extends State<Groupslist> {
                     ),
                 ],
             ),
-            drawer: navigationdrawer(context,1),
         );
     }
 }

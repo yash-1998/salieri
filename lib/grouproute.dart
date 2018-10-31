@@ -66,7 +66,8 @@ class _GroupRouteState extends State<GroupRoute> {
     List<Widget> childd=new List();
 
     print(group.key);
-    childd.add(FutureBuilder(
+    childd.add(
+        FutureBuilder(
 
               future : database.reference().child("Groups").child(group.key).child("Transactions").once(),
               builder: (BuildContext context,AsyncSnapshot snapshot){
@@ -75,7 +76,7 @@ class _GroupRouteState extends State<GroupRoute> {
                   if(m == null)
                       m = new Map();
                   print(" M iinfo  ");
-                 // print(m.length);
+                  print(m.length);
                   print(m.runtimeType);
 
                   List<Widget> arr = new List();
@@ -127,7 +128,7 @@ class _GroupRouteState extends State<GroupRoute> {
                   );
                 }
               }
-          )
+        )
     );
         print("hello");
         print(childd.length);
@@ -136,8 +137,7 @@ class _GroupRouteState extends State<GroupRoute> {
   List<Widget> _getmember(){
 
     List<Widget> childd=new List();
-    for(int i=-0;i<group.members.length;i++)
-      {
+    for(int i=0;i<group.members.length;i++) {
         childd.add(
             FutureBuilder(
                 future : database.reference().child("Appusers").child(group.members[i]).once(),
@@ -164,7 +164,7 @@ class _GroupRouteState extends State<GroupRoute> {
                 }
             )
         );
-      }
+    }
 
     return childd;
   }

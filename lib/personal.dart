@@ -163,7 +163,6 @@ class _personalState extends State<personal> {
                 ),
         ],
             ),
-            drawer: navigationdrawer(context,2),
         );
     }
 }
