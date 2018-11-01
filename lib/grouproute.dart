@@ -1,5 +1,3 @@
-import 'dart:io';
-
 import 'package:firebase_database/firebase_database.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -65,8 +63,8 @@ class _GroupRouteState extends State<GroupRoute> {
 
   List<Widget> _getquerytransactions(){
 
-      print("Slleepp");
-      List<Widget> childd=new List();
+  print("Slleepp");
+  List<Widget> childd=new List();
     print(group.key);
     childd.add(
         FutureBuilder(
@@ -97,10 +95,11 @@ class _GroupRouteState extends State<GroupRoute> {
                                 future : Future.wait([database.reference().child("Appusers").child(v['sender']).once(),database.reference().child("Appusers").child(v['receiver']).once()])
                                 .then((response) => new Twousers(Appuser.fromSnapShot(response[0]),Appuser.fromSnapShot(response[1]))),
                                 builder: (context, AsyncSnapshot<Twousers> snapshot) {
-
-                                    return Text( "Sender:" + snapshot.data.user1.username + "\nReceiver:" + snapshot.data.user2.username,style: new TextStyle(color: Colors.black));
-
-                                },
+                                    if(snapshot.hasData)
+                                            return Text( "Sender:" + snapshot.data.user1.username + "\nReceiver:" + snapshot.data.user2.username,style: new TextStyle(color: Colors.black));
+                                    else
+                                       return CircularProgressIndicator();
+                                    },
                             ),
                             subtitle: Text(v["reason"]),
                             trailing: Text("₹" + v["amount"].toString(),style: new TextStyle(color: Colors.purpleAccent),),
