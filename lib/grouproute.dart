@@ -130,7 +130,7 @@ class _GroupRouteState extends State<GroupRoute> {
                   return new Column(children : arr);
                 }
                 else{
-                  print("hjelo");
+                  print("hjelffo");
                   return CircularProgressIndicator(
                     backgroundColor: Colors.blueAccent,
                     strokeWidth: 2.0,
